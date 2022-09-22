@@ -12,6 +12,7 @@ namespace SimplyGreatGames.UI
 
         [Header("Settings")]
         public bool StartToggledOn;
+        public float StartDelay;
         [Range(0,100)] public float GroupSpacing;
         public ButtonManagerAnimationStyle AnimationStyle;
         [Range(0, 1)] public float CascadeDelay;
@@ -30,7 +31,7 @@ namespace SimplyGreatGames.UI
         public void Start()
         {
             if (StartToggledOn && ButtonGroups.Length > 0)
-                ToggleButtonGroup(ButtonGroups[0].Name, true);
+                StartCoroutine(ToggleButtonGroupOnDelay(ButtonGroups[0].Name, true));
         }
 
         #endregion
@@ -55,6 +56,13 @@ namespace SimplyGreatGames.UI
                 }
             }
         }
+
+        public IEnumerator ToggleButtonGroupOnDelay(string name, bool isLoadingIn)
+        {
+            yield return new WaitForSeconds(StartDelay);
+            ToggleButtonGroup(name, isLoadingIn);
+        }
+
         public void ToggleButtonGroup(string name, bool isLoadingIn)
         {
             ButtonGroup buttonGroupLoading = GetButtonGroup(name);

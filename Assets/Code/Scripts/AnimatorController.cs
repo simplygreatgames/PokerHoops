@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 namespace SimplyGreatGames.PokerHoops
 {
@@ -6,12 +7,26 @@ namespace SimplyGreatGames.PokerHoops
     {
         public Animator Animator { get; private set; }
 
-        public bool IsToggled;
+        [Header("Start Values")]
+        public bool IsSetOnStart;
+        public bool StartValue;
+        public float StartDelay;
 
         public void Awake()
         {
             Animator = GetComponent<Animator>();
-            SetToggle(IsToggled);
+        }
+
+        public void Start()
+        {
+            if (IsSetOnStart)
+                StartCoroutine(SetToggleOnDelay());
+        }
+
+        private IEnumerator SetToggleOnDelay()
+        {
+            yield return new WaitForSeconds(StartDelay);
+            SetToggle(StartValue);
         }
 
         public void SetToggle(bool toggleValue)
