@@ -61,6 +61,7 @@ MonoBehaviour:
     Buttons:
     - {fileID: 5360631103080826854}
     - {fileID: 2726477620335856075}
+    - {fileID: 2418877140392410604}
   DebugButtonGroupName: BaseMenu
   DebugEndXPosition: 0
   DebugIsToggledOn: 0
@@ -182,6 +183,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8e9eac10d378fd84da453333c739b295, type: 3}
+--- !u!95 &2418877140392410604 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 4252786723887194235, guid: 8e9eac10d378fd84da453333c739b295, type: 3}
+  m_PrefabInstance: {fileID: 1915574723025952151}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &6685936948282079809 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5070003372899100630, guid: 8e9eac10d378fd84da453333c739b295, type: 3}

@@ -167,6 +167,13 @@ namespace SimplyGreatGames.UI
 
         #endregion
 
+        #region Signals
+
+        public void OnSignalToggleOn(string menuName) => ToggleButtonGroup(menuName, true);
+        public void OnSignalToggleOff(string menuName) => ToggleButtonGroup(menuName, false);
+
+        #endregion
+
         #region Helpers
 
         public ButtonGroup GetButtonGroup(string name)
