@@ -133,11 +133,11 @@ PrefabInstance:
     - target: {fileID: 464164234998012475, guid: ce1cfc61263074d49b4c557720fc6f6c, type: 3}
       propertyPath: cardScriptable
       value: 
-      objectReference: {fileID: 11400000, guid: d0b23f14b816a2f46b10bc37eda76417, type: 2}
+      objectReference: {fileID: 11400000, guid: 73669e994a832064f98b10e140669730, type: 2}
     - target: {fileID: 1235334990665395682, guid: ce1cfc61263074d49b4c557720fc6f6c, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 01482d187a1c12e43bb85728fd51748d, type: 3}
+      objectReference: {fileID: 21300000, guid: 9a61df709671bcc4ba8499ca80c9d302, type: 3}
     - target: {fileID: 1235334990665395682, guid: ce1cfc61263074d49b4c557720fc6f6c, type: 3}
       propertyPath: m_SortingLayer
       value: 0
