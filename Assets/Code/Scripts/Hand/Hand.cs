@@ -12,6 +12,8 @@ namespace SimplyGreatGames.PokerHoops
         public List<Card> DebugCards = new List<Card>();
         public DiscardPile DebugDiscardPile = null;
 
+        private Player playerOwner;
+
         #region Unity Methods / Initialize 
 
         public void Awake()
@@ -25,6 +27,11 @@ namespace SimplyGreatGames.PokerHoops
 
             foreach (HandSlot handSlot in HandSlots)
                 handSlot.RegisterHandSlot(this);
+        }
+
+        public void RegisterHand(Player player)
+        {
+            playerOwner = player;
         }
 
         #endregion

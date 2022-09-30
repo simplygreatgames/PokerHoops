@@ -1,21 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 namespace SimplyGreatGames.PokerHoops
 {
     public class DiscardPile : MonoBehaviour
     {
-        // Start is called before the first frame update
-        void Start()
+        [SerializeField] private List<Card> currentPile;
+        public List<Card> CurrentPile
         {
-        
+            get { return currentPile; }
+            private set { currentPile = value; }
         }
 
-        // Update is called once per frame
-        void Update()
+        private Player playerOwner;
+
+        public void RegisterDiscardPile(Player player) => playerOwner = player;
+
+        public void AddToDiscardPile(Card card)
         {
-        
+            currentPile.Add(card);
+
+            card.transform.SetParent(this.transform);
+            card.transform.DOLocalMove(Vector3.zero, 1);
         }
     }
 }
