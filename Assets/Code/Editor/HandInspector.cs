@@ -19,4 +19,18 @@ namespace SimplyGreatGames.PokerHoops
                 hand.Debug_RemoveCardsFromHand();
         }
     }
+
+    [CustomEditor(typeof(PlayerStateMachineOperator))]
+    public class PlayerStateMachineInspector : Editor
+    {
+        public override void OnInspectorGUI()
+        {
+            base.OnInspectorGUI();
+
+            PlayerStateMachineOperator playerStateMachineOperator = (PlayerStateMachineOperator)target;
+
+            if (GUILayout.Button("SetInitialState"))
+                playerStateMachineOperator.SetPlayerState(new InitializeState(playerStateMachineOperator));
+        }
+    }
 }
