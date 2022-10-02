@@ -50,16 +50,13 @@ namespace SimplyGreatGames.PokerHoops
 
         private void MoveCardToSlotCompleted()
         {
-            Debug.Log("Move Card To Slot Completed");
             CardInSlot = CardPendingSlot;
             CardPendingSlot = null;
         }
 
         private void MoveCardToDispile()
         {
-            Debug.LogWarning("Temporary Solution! This should be refactored when player discard piles are created");
-
-            CardInSlot.transform.SetParent(HandOwner.DebugDiscardPile.transform);
+            CardInSlot.transform.SetParent(HandOwner.PlayerOwner.DiscardPile.transform);
             CardInSlot.transform.DOLocalMove(Vector3.zero, 1);
 
             CardInSlot = null;

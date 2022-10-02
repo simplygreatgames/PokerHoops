@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace SimplyGreatGames.PokerHoops
 {
-    [RequireComponent(typeof(PlayerStateMachineOperator))]
+    [RequireComponent(typeof(PlayerStateMachine))]
     public class Player : MonoBehaviour
     {
         #region Card Properties
@@ -31,24 +31,36 @@ namespace SimplyGreatGames.PokerHoops
 
         #endregion
 
-        #region Player State & Data
+        #region State & Data
 
         [Header("State Machine")]
-        [SerializeField] private PlayerStateMachineOperator playerStateMachine;
-        public PlayerStateMachineOperator PlayerStateMachine
+        [SerializeField] private PlayerStateMachine playerStateMachine;
+        public PlayerStateMachine PlayerStateMachine
         {
             get => playerStateMachine;
             private set => playerStateMachine = value;
         }
 
-        #endregion 
+        #endregion
+
+        #region Input
+
+        [Header("Input")]
+        [SerializeField] private MouseInput mouseInput;
+        public MouseInput MouseInput
+        {
+            get => mouseInput;
+            private set => mouseInput= value;
+        }
+
+        #endregion
 
         #region Unity Methods & Initialization
 
         public void Awake()
         {
             GetComponents();
-            RegisterCardElements();
+            RegisterComponents();
         }
 
         private void GetComponents()
@@ -63,10 +75,13 @@ namespace SimplyGreatGames.PokerHoops
                 hand = GetComponentInChildren<Hand>();
 
             if (playerStateMachine == null)
-                PlayerStateMachine = GetComponent<PlayerStateMachineOperator>();
+                PlayerStateMachine = GetComponent<PlayerStateMachine>();
+
+            if (mouseInput == null)
+                MouseInput = GetComponent<MouseInput>();
         }
 
-        private void RegisterCardElements()
+        private void RegisterComponents()
         {
             DiscardPile.RegisterDiscardPile(this);
             Hand.RegisterHand(this);
@@ -76,6 +91,4 @@ namespace SimplyGreatGames.PokerHoops
 
         #endregion
     }
-
-
 }

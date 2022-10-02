@@ -20,14 +20,14 @@ namespace SimplyGreatGames.PokerHoops
         }
     }
 
-    [CustomEditor(typeof(PlayerStateMachineOperator))]
+    [CustomEditor(typeof(PlayerStateMachine))]
     public class PlayerStateMachineInspector : Editor
     {
         public override void OnInspectorGUI()
         {
             base.OnInspectorGUI();
 
-            PlayerStateMachineOperator playerStateMachineOperator = (PlayerStateMachineOperator)target;
+            PlayerStateMachine playerStateMachineOperator = (PlayerStateMachine)target;
 
             if (GUILayout.Button("SetInitialState"))
                 playerStateMachineOperator.SetPlayerState(new InitializeState(playerStateMachineOperator));

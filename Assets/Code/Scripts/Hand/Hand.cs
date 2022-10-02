@@ -5,14 +5,13 @@ namespace SimplyGreatGames.PokerHoops
 {
     public class Hand : MonoBehaviour
     {
+        public Player PlayerOwner { get; private set; }
         public HandSlot[] HandSlots { get; private set; }
         public List<Card> Cards = new List<Card>();
 
         [Header("Debug Settings")]
         public List<Card> DebugCards = new List<Card>();
         public DiscardPile DebugDiscardPile = null;
-
-        private Player playerOwner;
 
         #region Unity Methods / Initialize 
 
@@ -31,7 +30,7 @@ namespace SimplyGreatGames.PokerHoops
 
         public void RegisterHand(Player player)
         {
-            playerOwner = player;
+            PlayerOwner = player;
         }
 
         #endregion

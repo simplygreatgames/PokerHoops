@@ -3,7 +3,7 @@ using DG.Tweening;
 
 namespace SimplyGreatGames.PokerHoops
 {
-    public class Card : MonoBehaviour
+    public class Card : MonoBehaviour, Interfaces.IInteractable
     {
         [Header("Dependencies")]
         [SerializeField] private Animator animator;
@@ -106,6 +106,20 @@ namespace SimplyGreatGames.PokerHoops
             Animator.SetBool("IsFacing", isFacing);
         }
 
-        #endregion 
+        #endregion
+
+        #region IInteractable Interface
+
+        public void OnLeftClick()
+        {
+            Debug.Log("Left Clicked: " + CardScriptable.name);
+        }
+
+        public void OnRightClick()
+        {
+            Debug.Log("Right Clicked: " + CardScriptable.name);
+        }
+
+        #endregion
     }
 }

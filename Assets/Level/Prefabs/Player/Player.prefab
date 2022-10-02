@@ -97,6 +97,7 @@ GameObject:
   - component: {fileID: 8425371303722901270}
   - component: {fileID: 9122351817425785690}
   - component: {fileID: 1425942631458319357}
+  - component: {fileID: 2526340830648107023}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -137,6 +138,7 @@ MonoBehaviour:
   deck: {fileID: 6631904043702252847}
   hand: {fileID: 8444047163286533571}
   playerStateMachine: {fileID: 1425942631458319357}
+  mouseInput: {fileID: 2526340830648107023}
 --- !u!114 &1425942631458319357
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -151,6 +153,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   StateAnimator: {fileID: 8459108615661832158}
   Player: {fileID: 9122351817425785690}
+--- !u!114 &2526340830648107023
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8464394335431152163}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4620cbcf0a65e1444a9cd1ca803c3427, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isToggledOn: 1
+  debugMode: 0
 --- !u!1001 &128255276335672076
 PrefabInstance:
   m_ObjectHideFlags: 0

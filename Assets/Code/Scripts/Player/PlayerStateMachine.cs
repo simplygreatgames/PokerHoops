@@ -1,49 +1,21 @@
-﻿using UnityEngine;
-
-namespace SimplyGreatGames.PokerHoops
+﻿namespace SimplyGreatGames.PokerHoops
 {
-    public class PlayerStateMachine : StateMachine
+    public class PlayerStateMachine : StateMachineOperator
     {
-        public PlayerStateMachine(PlayerStateMachineOperator stateMachineOperator) => StateMachineOperator = stateMachineOperator;
-        protected PlayerStateMachineOperator StateMachineOperator;
+        public PlayerState CurrentState;
+        public Player Player;
 
+        public void RegisterStateMachine(Player player) => Player = player;
 
-
-        #region State Methods
-
-        public override void OnStateEnter()
+        public void SetPlayerState(PlayerState nextState)
         {
-            StateMachineOperator.AnimateState(this);
+            if (CurrentState != null)
+                CurrentState.OnStateExit();
+
+            CurrentState = nextState;
+
+            if (CurrentState != null)
+                CurrentState.OnStateEnter();
         }
-
-        public override void OnStateExit()
-        {
-        }
-
-        public override void Tick()
-        {
-        }
-
-        #endregion
-
     }
-
-    #region Player States
-
-    public class InitializeState : PlayerStateMachine
-    {
-        public InitializeState(PlayerStateMachineOperator stateMachineOperator) : base(stateMachineOperator) { }
-
-        public override void OnStateEnter()
-        {
-            base.OnStateEnter();
-            BuildDeck();
-            DrawStartingHand();
-        }
-
-        private void BuildDeck() => StateMachineOperator.Player.Deck.BuildDeck();
-        private void DrawStartingHand() => StateMachineOperator.Player.Deck.DrawFromDeck(5);
-    }
-
-    #endregion
 }

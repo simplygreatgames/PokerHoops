@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace SimplyGreatGames.PokerHoops
 {
-    public abstract class StateMachine
+    public abstract class State
     {
         public abstract void OnStateEnter();
         public abstract void Tick();
@@ -13,7 +13,7 @@ namespace SimplyGreatGames.PokerHoops
     {
         public Animator StateAnimator;
 
-        public void AnimateState(StateMachine curretState)
+        public void AnimateState(State curretState)
         {
             string[] stateName = curretState.ToString().Split('.');
 
