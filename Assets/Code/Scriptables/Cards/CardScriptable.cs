@@ -7,6 +7,11 @@ namespace SimplyGreatGames.PokerHoops
     {
         public Enums.CardSuits Suit;
         public int Value;
-        public Sprite Sprite;
+
+        [Header("Art")]
+        public Sprite SuitOverlay;
+        public Sprite ValueOverlay;
+        public Sprite ArtBackground;
+        public Sprite FrameOverlay;
     }
 }

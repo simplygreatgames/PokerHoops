@@ -5,23 +5,13 @@ namespace SimplyGreatGames.PokerHoops
 {
     public class Card : MonoBehaviour, Interfaces.IInteractable
     {
-        [Header("Dependencies")]
-        [SerializeField] private Animator animator;
-        public Animator Animator { get { return animator; } private set { animator = value; } }
-
-        [SerializeField] private SpriteRenderer spriteRendererFront;
-        public SpriteRenderer SpriteRendererFront { get { return spriteRendererFront; } private set { spriteRendererFront = value; } }
-
-        [SerializeField] private SpriteRenderer spriteRendererBack;
-        public SpriteRenderer SpriteRendererBack { get { return spriteRendererBack; } private set { spriteRendererBack = value; } }
-
         [Header("Data")]
         [SerializeField] private CardScriptable cardScriptable;
         public CardScriptable CardScriptable
         {
             get { return cardScriptable; }
-            set 
-            { 
+            set
+            {
                 cardScriptable = value;
                 SetCardArt();
                 SetCardSuit();
@@ -40,6 +30,27 @@ namespace SimplyGreatGames.PokerHoops
             }
         }
 
+        [Header("Components")]
+        [SerializeField] private Animator animator;
+        public Animator Animator { get { return animator; } private set { animator = value; } }
+
+        [Header("Sprites")]
+        [SerializeField] private SpriteRenderer suitSprite;
+        public SpriteRenderer SuitSprite { get { return suitSprite; } private set { suitSprite = value; } }
+
+        [SerializeField] private SpriteRenderer valueSprite;
+        public SpriteRenderer ValueSprite { get { return valueSprite; } private set { valueSprite = value; } }
+
+        [SerializeField] private SpriteRenderer frameSprite;
+        public SpriteRenderer FrameSprite { get { return frameSprite; } private set { frameSprite = value; } }
+
+        [SerializeField] private SpriteRenderer artSprite;
+        public SpriteRenderer ArtSprite { get { return artSprite; } private set { artSprite = value; } }
+
+        [SerializeField] private SpriteRenderer backSprite;
+        public SpriteRenderer BackSprite { get { return backSprite; } private set { backSprite = value; } }
+
+
         public Enums.CardSuits Suit { get; private set; }
         public int Value { get; private set; }
 
@@ -57,8 +68,8 @@ namespace SimplyGreatGames.PokerHoops
             if (animator == null)
                 Animator = GetComponent<Animator>();
 
-            if (spriteRendererFront == null)
-                SpriteRendererFront = GetComponentInChildren<SpriteRenderer>();
+            if (artSprite == null)
+                ArtSprite = GetComponentInChildren<SpriteRenderer>();
         }
 
         #endregion
@@ -68,10 +79,15 @@ namespace SimplyGreatGames.PokerHoops
         public void SetCardArt()
         {
             if (CardScriptable != null)
-                SpriteRendererFront.sprite = CardScriptable.Sprite;
+            {
+                SuitSprite.sprite = CardScriptable.SuitOverlay;
+                ValueSprite.sprite = CardScriptable.ValueOverlay;
+                FrameSprite.sprite = CardScriptable.FrameOverlay;
+                ArtSprite.sprite = CardScriptable.ArtBackground;
+            }
 
             if (CardBackScriptable != null)
-                SpriteRendererBack.sprite = CardBackScriptable.Sprite;
+                BackSprite.sprite = CardBackScriptable.Sprite;
         }
 
         public void SetCardSuit()

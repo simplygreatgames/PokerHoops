@@ -4,10 +4,10 @@ namespace SimplyGreatGames.PokerHoops
     {
         public enum CardSuits
         {
-            Clubs,
-            Diamonds,
-            Hearts,
-            Spades
+            Club,
+            Diamond,
+            Heart,
+            Spade
         }
     }
 }
