@@ -4,7 +4,16 @@ namespace SimplyGreatGames.PokerHoops
 {
     public class Game : MonoBehaviour
     {
-        #region State & Data
+        private GameSettings gameSettings;
+        public GameSettings GameSettings 
+        {
+            get { return gameSettings; }
+            set
+            {
+                gameSettings = value;
+                InitializeSettings();
+            }
+        }
 
         [Header("State Machine")]
         [SerializeField] private GameStateMachine gameStateMachine;
@@ -14,6 +23,19 @@ namespace SimplyGreatGames.PokerHoops
             private set => gameStateMachine = value;
         }
 
-        #endregion
+        public void InitializeSettings()
+        {
+            Debug.Log("Initializing Game Settings (Not Implemented)");
+        }
+    }
+
+    public class GameSettings
+    {
+
+    }
+
+    public class DefaultGameSettings : GameSettings
+    {
+
     }
 }
