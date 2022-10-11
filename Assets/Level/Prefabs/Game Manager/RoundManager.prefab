@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8349001288969864026}
   - component: {fileID: 6768853991145989336}
   m_Layer: 0
-  m_Name: GameManager
+  m_Name: RoundManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -45,4 +45,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GamePrefab: {fileID: 7275053109430108061, guid: b9f3eefe6fd2b494fa3dc31b40f9416f, type: 3}
-  currentGame: {fileID: 0}
+  currentRoundOfGames: []

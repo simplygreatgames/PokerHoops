@@ -1,9 +1,11 @@
-﻿namespace SimplyGreatGames.PokerHoops
+﻿using UnityEngine;
+
+namespace SimplyGreatGames.PokerHoops
 {
     public class PlayerState : State
     {
-        public PlayerState(PlayerStateMachine stateMachine) => StateMachine = stateMachine;
         protected PlayerStateMachine StateMachine;
+        public PlayerState(PlayerStateMachine stateMachine) => StateMachine = stateMachine;
 
         #region State Methods
 
@@ -21,14 +23,13 @@
         }
 
         #endregion
-
     }
 
     #region Player States
 
-    public class InitializeState : PlayerState
+    public class InitializePlayerState : PlayerState
     {
-        public InitializeState(PlayerStateMachine stateMachine) : base(stateMachine) { }
+        public InitializePlayerState(PlayerStateMachine stateMachine) : base(stateMachine) { }
 
         public override void OnStateEnter()
         {
@@ -37,7 +38,11 @@
             DrawStartingHand();
         }
 
-        private void BuildDeck() => StateMachine.Player.Deck.BuildDeck();
+        private void BuildDeck() 
+        { 
+            StateMachine.Player.Deck.BuildDeck(); 
+            Debug.Log("Should be refactored! Players will not have individual decks. Instead dealer will own the deck"); 
+        }
         private void DrawStartingHand() => StateMachine.Player.Deck.DrawFromDeck(5);
     }
 

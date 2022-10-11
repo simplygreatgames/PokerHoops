@@ -1,20 +1,21 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace SimplyGreatGames.PokerHoops
 {
-    public class GameManager : MonoBehaviour
+    public class RoundManager : MonoBehaviour
     {
-        public static GameManager Instance = null;
+        public static RoundManager Instance = null;
 
         [Header("Dependencies")]
         [SerializeField] private GameObject GamePrefab = null;
 
         [Header("Game Data")]
-        [SerializeField] private Game currentGame;
-        public Game CurrentGame
+        [SerializeField] private List<Game> currentRoundOfGames;
+        public List<Game> CurrentRoundOfGames
         {
-            get => currentGame;
-            set => currentGame = value;
+            get => currentRoundOfGames;
+            set => currentRoundOfGames = value;
         }
 
         #region Unity Methods
@@ -41,7 +42,7 @@ namespace SimplyGreatGames.PokerHoops
             Game loadedGame = loadedGameObj.GetComponent<Game>();
 
             loadedGame.GameSettings = gameSettings;
-            CurrentGame = loadedGame;
+            CurrentRoundOfGames.Add(loadedGame);
         }
 
         #endregion

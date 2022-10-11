@@ -3,7 +3,7 @@
     public class PlayerStateMachine : StateMachineOperator
     {
         public PlayerState CurrentState;
-        public Player Player;
+        public Player Player { get; private set; }
 
         public void RegisterStateMachine(Player player) => Player = player;
 

@@ -5,6 +5,13 @@ namespace SimplyGreatGames.PokerHoops
     [RequireComponent(typeof(PlayerStateMachine))]
     public class Player : MonoBehaviour
     {
+        #region Player Properties
+
+        public int PlayerID { get; private set; }
+        public string PlayerName { get; private set; }
+
+        #endregion
+
         #region Card Properties
 
         [Header("Card Elements")]
@@ -59,6 +66,8 @@ namespace SimplyGreatGames.PokerHoops
 
         public void Awake()
         {
+            PlayerID = gameObject.GetInstanceID();
+
             GetComponents();
             RegisterComponents();
         }

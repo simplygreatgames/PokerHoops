@@ -13,7 +13,7 @@ namespace SimplyGreatGames.PokerHoops
             PlayerStateMachine playerStateMachineOperator = (PlayerStateMachine)target;
 
             if (GUILayout.Button("SetInitialState"))
-                playerStateMachineOperator.SetPlayerState(new InitializeState(playerStateMachineOperator));
+                playerStateMachineOperator.SetPlayerState(new InitializePlayerState(playerStateMachineOperator));
         }
     }
 }
