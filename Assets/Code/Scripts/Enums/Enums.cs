@@ -9,5 +9,13 @@ namespace SimplyGreatGames.PokerHoops
             Heart,
             Spade
         }
+
+        public enum OponentType
+        {
+            Unranked,
+            Ranked,
+            HeadToHead
+        }
+
     }
 }

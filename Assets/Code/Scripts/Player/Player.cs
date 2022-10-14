@@ -10,6 +10,8 @@ namespace SimplyGreatGames.PokerHoops
         public int PlayerID { get; private set; }
         public string PlayerName { get; private set; }
 
+        public TeamSchedule TeamSchedule { get; private set; }
+
         #endregion
 
         #region Card Properties

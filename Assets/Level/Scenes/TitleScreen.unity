@@ -777,7 +777,7 @@ PrefabInstance:
     - target: {fileID: 4468846284886464073, guid: 96f21a267809cea4abf01f401b64798b, type: 3}
       propertyPath: m_PlayableAsset
       value: 
-      objectReference: {fileID: 11400000, guid: ad9c362a41875c94ab9cbbf90d9190fe, type: 2}
+      objectReference: {fileID: 11400000, guid: c7beeccd27b18f94881e734ab36b2b81, type: 2}
     - target: {fileID: 4468846284886464073, guid: 96f21a267809cea4abf01f401b64798b, type: 3}
       propertyPath: m_SceneBindings.Array.size
       value: 6
@@ -988,7 +988,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 525443457508282047, guid: 1dfde5d4d8176e04daf242e85c182bd3, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 820969564053278926, guid: 1dfde5d4d8176e04daf242e85c182bd3, type: 3}
       propertyPath: m_IsActive
@@ -1011,10 +1011,6 @@ PrefabInstance:
       value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 1484133336445187204, guid: 1dfde5d4d8176e04daf242e85c182bd3, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1484133336445187204, guid: 1dfde5d4d8176e04daf242e85c182bd3, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -20
       objectReference: {fileID: 0}
@@ -1033,10 +1029,6 @@ PrefabInstance:
     - target: {fileID: 3048105595724575641, guid: 1dfde5d4d8176e04daf242e85c182bd3, type: 3}
       propertyPath: m_AnchorMin.y
       value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3048105595724575641, guid: 1dfde5d4d8176e04daf242e85c182bd3, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3048105595724575641, guid: 1dfde5d4d8176e04daf242e85c182bd3, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -1161,10 +1153,6 @@ PrefabInstance:
     - target: {fileID: 5260118456626019090, guid: 1dfde5d4d8176e04daf242e85c182bd3, type: 3}
       propertyPath: m_AnchorMin.y
       value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5260118456626019090, guid: 1dfde5d4d8176e04daf242e85c182bd3, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5260118456626019090, guid: 1dfde5d4d8176e04daf242e85c182bd3, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -1397,7 +1385,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8471869176508095679, guid: 172a34f81bccfe14ca6bc21cb0637779, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9053745389438090885, guid: 172a34f81bccfe14ca6bc21cb0637779, type: 3}
       propertyPath: m_Pivot.x
