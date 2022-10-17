@@ -10,7 +10,10 @@ namespace SimplyGreatGames.PokerHoops
         [Header("Dependencies")]
         [SerializeField] private GameObject GamePrefab = null;
 
-        [Header("Game Data")]
+        [Header("Round Info")]
+        [SerializeField] private int currentRound;
+        public int CurrentRound { get => currentRound; set => currentRound = value; }
+
         [SerializeField] private List<Game> currentRoundOfGames;
         public List<Game> CurrentRoundOfGames
         {
@@ -30,7 +33,7 @@ namespace SimplyGreatGames.PokerHoops
 
         #region Saving / Loading Game
 
-        public void LoadNewGame(GameSettings gameSettings)
+        public void GenerateRoundOfGames(GameSettings gameSettings, Enums.OpponentType opponentType)
         {
             if (GamePrefab == null)
             {
@@ -38,11 +41,36 @@ namespace SimplyGreatGames.PokerHoops
                 return;
             }
 
-            GameObject loadedGameObj = Instantiate(GamePrefab, this.transform);
-            Game loadedGame = loadedGameObj.GetComponent<Game>();
+            CurrentRoundOfGames.Clear();
+            CurrentRound = SeasonManager.Instance.CurrentSeason.RoundNumber;
 
-            loadedGame.GameSettings = gameSettings;
-            CurrentRoundOfGames.Add(loadedGame);
+            switch (opponentType)
+            {
+                case Enums.OpponentType.Unranked:
+
+                    for (int i = 0; i < SeasonManager.Instance.CurrentSeason.Players.Count; i++)
+                    {
+                        GameObject loadedGameObj = Instantiate(GamePrefab, this.transform);
+                        Game loadedGame = loadedGameObj.GetComponent<Game>();
+                        
+                        loadedGame.GameSettings = gameSettings;
+                        loadedGame.GameType = opponentType;
+                        CurrentRoundOfGames.Add(loadedGame);
+                    }
+
+                    break;
+
+                case Enums.OpponentType.Ranked:
+                    break;
+
+                case Enums.OpponentType.HeadToHead:
+                    break;
+
+                default:
+                    break;
+            }
+
+            PlayerPoolManager.Instance.AssignPlayersToGames(CurrentRoundOfGames);
         }
 
         #endregion

@@ -10,7 +10,7 @@ namespace SimplyGreatGames.PokerHoops
             Spade
         }
 
-        public enum OponentType
+        public enum OpponentType
         {
             Unranked,
             Ranked,

@@ -4,7 +4,7 @@
     public class ScheduleLine
     {
         public int LineNumber;
-        public Enums.OponentType OpponentType;
+        public Enums.OpponentType OpponentType;
         public ScheduleLineData ScheduleLineData;
     }
 }

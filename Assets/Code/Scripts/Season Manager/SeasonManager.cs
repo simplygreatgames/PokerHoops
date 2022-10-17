@@ -24,7 +24,12 @@ namespace SimplyGreatGames.PokerHoops
             GameObject seasonObj = Instantiate(seasonPrefab, transform);
             CurrentSeason = seasonObj.GetComponent<Season>();
 
-            CurrentSeason.SetSeasonSettings(seasonSettings);
+            CurrentSeason.Settings = seasonSettings;
+        }
+
+        public void StartSeason()
+        {
+            CurrentSeason.StateMachine.SetSeasonState(new StartSeasonState(CurrentSeason.StateMachine));
         }
 
         #endregion 

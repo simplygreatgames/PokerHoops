@@ -19,6 +19,14 @@ namespace SimplyGreatGames.PokerHoops
 
                 seasonManager.LoadNewSeason(new SeasonSettings());
             }
+
+            else if (GUILayout.Button("Start Season"))
+            {
+                if (!Application.isPlaying)
+                    return;
+
+                seasonManager.StartSeason();
+            }
         }
     }
 }

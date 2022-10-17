@@ -12,8 +12,8 @@ namespace SimplyGreatGames.PokerHoops
 
             RoundManager gameManager = (RoundManager) target;
 
-            if (GUILayout.Button("Load New Game"))
-                gameManager.LoadNewGame(new DefaultGameSettings());
+            if (GUILayout.Button("Generate Unranked Round"))
+                gameManager.GenerateRoundOfGames(new DefaultGameSettings(), Enums.OpponentType.Unranked);
         }
     }
 }

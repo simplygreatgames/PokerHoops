@@ -71,5 +71,15 @@ namespace SimplyGreatGames.PokerHoops
         }
     }
 
+    public class StartSeasonState : SeasonState
+    {
+        public StartSeasonState(SeasonStateMachine stateMachine) : base(stateMachine) { }
+
+        public override void OnStateEnter()
+        {
+            base.OnStateEnter();
+        }
+    }
+
     #endregion
 }

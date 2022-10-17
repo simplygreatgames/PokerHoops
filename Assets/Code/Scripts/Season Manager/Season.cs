@@ -27,15 +27,21 @@ namespace SimplyGreatGames.PokerHoops
         }
 
         [SerializeField] private List<Player> players = null;
-        public List<Player> Players { get; set; }
-        public SeasonStats Stats { get; set; }
+        public List<Player> Players { get => players; set => players = value; }
+
+        [SerializeField] private SeasonStats stats = null;
+        public SeasonStats Stats { get => stats; set => stats = value; }
 
         [SerializeField] private int roundNumber = 0;
         public int RoundNumber { get => roundNumber; set => roundNumber = value; }
 
-        public void SetSeasonSettings(SeasonSettings settings) 
+
+        #region Unity Methods & Initializing
+
+        public void Awake()
         {
-            Settings = settings;
+            GetComponents();
+            RegisterComponents();
         }
 
         private void GetComponents()
@@ -44,15 +50,11 @@ namespace SimplyGreatGames.PokerHoops
                 StateMachine = GetComponent<SeasonStateMachine>();
         }
 
-        public void Awake()
-        {
-            GetComponents();
-            RegisterComponents();
-        }
-
         private void RegisterComponents()
         {
             StateMachine.RegisterStateMachine(this);
         }
+
+        #endregion
     }
 }
