@@ -9,6 +9,9 @@ namespace SimplyGreatGames.PokerHoops
         [Header("Settings")]
         [SerializeField] private GameObject seasonPrefab;
 
+        [SerializeField] private int numberOfPlayers = 0;
+        public int NumberOfPlayers { get => numberOfPlayers; set => numberOfPlayers = value; }
+
         public Season CurrentSeason { get; private set; }
 
         public void Awake()

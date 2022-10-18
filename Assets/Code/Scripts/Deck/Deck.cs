@@ -26,14 +26,6 @@ namespace SimplyGreatGames.PokerHoops
             private set { currentDeck = value; }
         }
 
-        private Player playerOwner;
-
-        #region Unity Methods & Initialization
-
-        public void RegisterDeck(Player player) => playerOwner = player;
-
-        #endregion
-
         #region Deck Methods
 
         public void BuildDeck()
@@ -63,7 +55,7 @@ namespace SimplyGreatGames.PokerHoops
             CurrentDeck = CurrentDeck.OrderBy(x => random.Next()).ToList();
         }
 
-        public List<Card> DrawFromDeck(int numberOfCards)
+        public List<Card> DrawFromDeck(int numberOfCards, Coach coach)
         {
             List<Card> drawnCards = new List<Card>();
             List<CardScriptable> cardScriptablesDrawn = new List<CardScriptable>();
@@ -74,7 +66,7 @@ namespace SimplyGreatGames.PokerHoops
             foreach (CardScriptable cardScriptable in cardScriptablesDrawn)
             {
                 GameObject cardObj = CardSpawner.Instance.SpawnCard(this.transform, cardScriptable);
-                playerOwner.Hand.AddToHand(cardObj.GetComponent<Card>());
+                coach.Hand.AddToHand(cardObj.GetComponent<Card>());
                 currentDeck.Remove(cardScriptable);
             }
 
@@ -99,7 +91,7 @@ namespace SimplyGreatGames.PokerHoops
             foreach (CardScriptable cardScriptable in cardScriptablesDrawn)
             {
                 GameObject cardObj = CardSpawner.Instance.SpawnCard(this.transform, cardScriptable);
-                playerOwner.DiscardPile.AddToDiscardPile(cardObj.GetComponent<Card>());
+                DealerManager.Instance.DiscardPile.AddToDiscardPile(cardObj.GetComponent<Card>());
                 currentDeck.Remove(cardScriptable);
             }
         }

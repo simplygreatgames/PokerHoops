@@ -8,7 +8,8 @@ namespace SimplyGreatGames.PokerHoops
         public static RoundManager Instance = null;
 
         [Header("Dependencies")]
-        [SerializeField] private GameObject GamePrefab = null;
+        [SerializeField] private GameObject gamePrefab = null;
+        [SerializeField] private Transform gameRoundSpawnPoint = null;
 
         [Header("Round Info")]
         [SerializeField] private int currentRound;
@@ -33,28 +34,27 @@ namespace SimplyGreatGames.PokerHoops
 
         #region Saving / Loading Game
 
-        public void GenerateRoundOfGames(GameSettings gameSettings, Enums.OpponentType opponentType)
+        public void GenerateRoundOfGames(RoundSettings roundSettings)
         {
-            if (GamePrefab == null)
+            if (gamePrefab == null)
             {
                 Debug.LogError("Must have Game Prefab Set");
                 return;
             }
 
-            CurrentRoundOfGames.Clear();
+            ClearRoundOfGames();
             CurrentRound = SeasonManager.Instance.CurrentSeason.RoundNumber;
 
-            switch (opponentType)
+            switch (roundSettings.OpponentType)
             {
                 case Enums.OpponentType.Unranked:
 
                     for (int i = 0; i < SeasonManager.Instance.CurrentSeason.Players.Count; i++)
                     {
-                        GameObject loadedGameObj = Instantiate(GamePrefab, this.transform);
+                        GameObject loadedGameObj = Instantiate(gamePrefab, this.transform);
                         Game loadedGame = loadedGameObj.GetComponent<Game>();
-                        
-                        loadedGame.GameSettings = gameSettings;
-                        loadedGame.GameType = opponentType;
+
+                        loadedGame.GameSettings = roundSettings;
                         CurrentRoundOfGames.Add(loadedGame);
                     }
 
@@ -71,6 +71,21 @@ namespace SimplyGreatGames.PokerHoops
             }
 
             PlayerPoolManager.Instance.AssignPlayersToGames(CurrentRoundOfGames);
+            AssignGameParents();
+        }
+
+        private void ClearRoundOfGames()
+        {
+            CurrentRoundOfGames.Clear();
+
+            foreach (GameObject game in gameRoundSpawnPoint.transform)
+                Destroy(game);
+        }
+
+        private void AssignGameParents()
+        {
+            foreach (Game game in CurrentRoundOfGames)
+                game.transform.SetParent(gameRoundSpawnPoint);
         }
 
         #endregion

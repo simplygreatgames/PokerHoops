@@ -15,9 +15,14 @@ namespace SimplyGreatGames.PokerHoops
             if (GUILayout.Button("Load New Season"))
             {
                 if (!Application.isPlaying)
-                    return; 
+                    return;
 
-                seasonManager.LoadNewSeason(new SeasonSettings());
+                SeasonSettings seasonSettings = new SeasonSettings()
+                {
+                    NumberOfPlayers = SeasonManager.Instance.NumberOfPlayers
+                };
+
+                seasonManager.LoadNewSeason(seasonSettings);
             }
 
             else if (GUILayout.Button("Start Season"))

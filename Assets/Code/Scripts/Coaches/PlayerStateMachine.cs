@@ -3,9 +3,9 @@
     public class PlayerStateMachine : StateMachineOperator
     {
         public PlayerState CurrentState;
-        public Player Player { get; private set; }
+        public PlayerCoach PlayerCoach { get; private set; }
 
-        public void RegisterStateMachine(Player player) => Player = player;
+        public void RegisterStateMachine(PlayerCoach player) => PlayerCoach = player;
 
         public void SetPlayerState(PlayerState nextState)
         {

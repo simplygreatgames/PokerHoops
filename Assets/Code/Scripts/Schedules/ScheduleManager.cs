@@ -20,7 +20,7 @@ namespace SimplyGreatGames.PokerHoops
 
         #region Schedule Methods
 
-        public void CreateSchedule(Player player)
+        public void CreateSchedule(PlayerCoach player)
         {
             player.TeamSchedule.CreateSchedule(scheduleScriptable);
         }

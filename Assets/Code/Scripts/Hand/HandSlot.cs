@@ -56,7 +56,7 @@ namespace SimplyGreatGames.PokerHoops
 
         private void MoveCardToDispile()
         {
-            CardInSlot.transform.SetParent(HandOwner.PlayerOwner.DiscardPile.transform);
+            CardInSlot.transform.SetParent(DealerManager.Instance.DiscardPile.transform);
             CardInSlot.transform.DOLocalMove(Vector3.zero, 1);
 
             CardInSlot = null;

@@ -14,9 +14,9 @@ namespace SimplyGreatGames.PokerHoops
             private set { currentPile = value; }
         }
 
-        private Player playerOwner;
+        private PlayerCoach playerOwner;
 
-        public void RegisterDiscardPile(Player player) => playerOwner = player;
+        public void RegisterDiscardPile(PlayerCoach player) => playerOwner = player;
 
         public void AddToDiscardPile(Card card)
         {

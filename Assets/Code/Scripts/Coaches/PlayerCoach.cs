@@ -3,42 +3,9 @@ using UnityEngine;
 namespace SimplyGreatGames.PokerHoops
 {
     [RequireComponent(typeof(PlayerStateMachine))]
-    public class Player : MonoBehaviour
+    public class PlayerCoach : Coach
     {
-        #region Player Properties
-
-        public int PlayerID { get; private set; }
-        public string PlayerName { get; private set; }
-
         public TeamSchedule TeamSchedule { get; private set; }
-
-        #endregion
-
-        #region Card Properties
-
-        [Header("Card Elements")]
-        [SerializeField] private DiscardPile discardPile;
-        public DiscardPile DiscardPile 
-        {
-            get => discardPile;
-            private set => discardPile = value; 
-        }
-
-        [SerializeField] private Deck deck;
-        public Deck Deck
-        {
-            get => deck;
-            private set => deck = value;
-        }
-
-        [SerializeField] private Hand hand;
-        public Hand Hand
-        {
-            get => hand;
-            private set => hand = value;
-        }
-
-        #endregion
 
         #region State & Data
 
@@ -68,7 +35,7 @@ namespace SimplyGreatGames.PokerHoops
 
         public void Awake()
         {
-            PlayerID = gameObject.GetInstanceID();
+            CoachID = gameObject.GetInstanceID();
 
             GetComponents();
             RegisterComponents();
@@ -76,14 +43,8 @@ namespace SimplyGreatGames.PokerHoops
 
         private void GetComponents()
         {
-            if (discardPile == null)
-                discardPile = GetComponentInChildren<DiscardPile>();
-
-            if (deck == null)
-                deck = GetComponentInChildren<Deck>();
-
-            if (hand == null)
-                hand = GetComponentInChildren<Hand>();
+            if (Hand == null)
+                Hand = GetComponentInChildren<Hand>();
 
             if (playerStateMachine == null)
                 PlayerStateMachine = GetComponent<PlayerStateMachine>();
@@ -94,9 +55,7 @@ namespace SimplyGreatGames.PokerHoops
 
         private void RegisterComponents()
         {
-            DiscardPile.RegisterDiscardPile(this);
             Hand.RegisterHand(this);
-            Deck.RegisterDeck(this);
             PlayerStateMachine.RegisterStateMachine(this);
         }
 

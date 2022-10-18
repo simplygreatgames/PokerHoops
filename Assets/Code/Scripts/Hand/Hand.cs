@@ -5,7 +5,7 @@ namespace SimplyGreatGames.PokerHoops
 {
     public class Hand : MonoBehaviour
     {
-        public Player PlayerOwner { get; private set; }
+        public Coach Owner { get; private set; }
         public HandSlot[] HandSlots { get; private set; }
         public List<Card> Cards = new List<Card>();
 
@@ -28,9 +28,9 @@ namespace SimplyGreatGames.PokerHoops
                 handSlot.RegisterHandSlot(this);
         }
 
-        public void RegisterHand(Player player)
+        public void RegisterHand(Coach coach)
         {
-            PlayerOwner = player;
+            Owner = coach;
         }
 
         #endregion

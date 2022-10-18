@@ -33,9 +33,15 @@ namespace SimplyGreatGames.PokerHoops
         {
             base.OnStateEnter();
 
+            InstantiateNewPlayers();
             PullPlayersFromPool();
             InitializeStats();
             CompleteInitialization();
+        }
+
+        private void InstantiateNewPlayers()
+        {
+            PlayerPoolManager.Instance.InstantiateNewPlayers(StateMachine.Season.Settings.NumberOfPlayers);
         }
 
         private void PullPlayersFromPool()
@@ -57,7 +63,11 @@ namespace SimplyGreatGames.PokerHoops
         private void CompleteInitialization()
         {
             if (initializeWasSuccess) StateMachine.SetSeasonState(new WaitingForStartSeasonState(StateMachine));
-            else Debug.LogError("Could not initialize season");
+            else
+            {
+                Debug.LogError("Could not initialize season");
+                Object.Destroy(StateMachine.Season.gameObject);
+            }
         }
     }
 
@@ -78,6 +88,9 @@ namespace SimplyGreatGames.PokerHoops
         public override void OnStateEnter()
         {
             base.OnStateEnter();
+
+            DealerManager.Instance.BuildDeck();
+            RoundManager.Instance.GenerateRoundOfGames(new DefaultGameSettings());
         }
     }
 

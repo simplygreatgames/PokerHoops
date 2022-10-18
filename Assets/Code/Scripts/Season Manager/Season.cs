@@ -5,6 +5,8 @@ namespace SimplyGreatGames.PokerHoops
 {
     public class Season : MonoBehaviour
     {
+        public bool Initialized { get; set; }
+
         [Header("State Machine")]
         [SerializeField] private SeasonStateMachine stateMachine;
         public SeasonStateMachine StateMachine
@@ -13,8 +15,7 @@ namespace SimplyGreatGames.PokerHoops
             private set => stateMachine = value;
         }
 
-        public bool Initialized { get; set; }
-
+        [Header("Settings")]
         [SerializeField] private SeasonSettings settings = null;
         public SeasonSettings Settings 
         {
@@ -26,8 +27,10 @@ namespace SimplyGreatGames.PokerHoops
             } 
         }
 
-        [SerializeField] private List<Player> players = null;
-        public List<Player> Players { get => players; set => players = value; }
+        [Header("Info")]
+
+        [SerializeField] private List<PlayerCoach> players = null;
+        public List<PlayerCoach> Players { get => players; set => players = value; }
 
         [SerializeField] private SeasonStats stats = null;
         public SeasonStats Stats { get => stats; set => stats = value; }
@@ -56,5 +59,6 @@ namespace SimplyGreatGames.PokerHoops
         }
 
         #endregion
+
     }
 }

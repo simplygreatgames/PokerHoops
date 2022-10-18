@@ -34,16 +34,10 @@ namespace SimplyGreatGames.PokerHoops
         public override void OnStateEnter()
         {
             base.OnStateEnter();
-            BuildDeck();
             DrawStartingHand();
         }
 
-        private void BuildDeck() 
-        { 
-            StateMachine.Player.Deck.BuildDeck(); 
-            Debug.Log("Should be refactored! Players will not have individual decks. Instead dealer will own the deck"); 
-        }
-        private void DrawStartingHand() => StateMachine.Player.Deck.DrawFromDeck(5);
+        private void DrawStartingHand() => DealerManager.Instance.Deck.DrawFromDeck(5, StateMachine.PlayerCoach);
     }
 
     #endregion
