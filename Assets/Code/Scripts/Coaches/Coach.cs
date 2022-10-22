@@ -4,8 +4,19 @@ namespace SimplyGreatGames.PokerHoops
 {
     public class Coach : MonoBehaviour
     {
-        public int CoachID { get; set; }
-        public string CoachName { get; set; }
+        [SerializeField] private int coachID = 0;
+        public int CoachID { get => coachID; set => coachID = value; }
+
+        [SerializeField] private string coachName = "Coach";
+        public string CoachName 
+        { 
+            get => coachName;
+            set
+            {
+                coachName = value;
+                gameObject.name = CoachName;
+            }
+        }
 
         #region Card Properties
 

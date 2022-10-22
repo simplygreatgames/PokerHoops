@@ -7,6 +7,7 @@ namespace SimplyGreatGames.PokerHoops
         public static ScheduleManager Instance;
 
         [SerializeField] private ScheduleScriptable scheduleScriptable;
+        public ScheduleScriptable ScheduleScriptable { get => scheduleScriptable; set => scheduleScriptable = value; }
 
         #region Unity Methods
 

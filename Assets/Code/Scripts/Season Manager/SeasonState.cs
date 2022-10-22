@@ -90,7 +90,7 @@ namespace SimplyGreatGames.PokerHoops
             base.OnStateEnter();
 
             DealerManager.Instance.BuildDeck();
-            RoundManager.Instance.GenerateRoundOfGames(new DefaultGameSettings());
+            RoundManager.Instance.GenerateRoundOfGames(new DefaultRoundSettings());
         }
     }
 

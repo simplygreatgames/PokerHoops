@@ -13,7 +13,7 @@ namespace SimplyGreatGames.PokerHoops
             RoundManager roundManager = (RoundManager) target;
 
             if (GUILayout.Button("Generate Unranked Round"))
-                roundManager.GenerateRoundOfGames(new DefaultGameSettings());
+                roundManager.GenerateRoundOfGames(new DefaultRoundSettings());
         }
     }
 }

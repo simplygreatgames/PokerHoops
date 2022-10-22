@@ -4,9 +4,6 @@ namespace SimplyGreatGames.PokerHoops
 {
     public class TeamSchedule : MonoBehaviour
     {
-        [SerializeField] private int teamRank;
-        public int TeamRank { get => teamRank; set => teamRank = value; }
-
         [SerializeField] private ScheduleLine[] scheduleLines;
         public ScheduleLine[] ScheduleLines { get => scheduleLines; set => scheduleLines = value; }
 

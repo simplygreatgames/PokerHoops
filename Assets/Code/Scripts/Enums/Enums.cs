@@ -10,6 +10,12 @@ namespace SimplyGreatGames.PokerHoops
             Spade
         }
 
+        public enum RoundType
+        {
+            DefaultSchedule = 0,
+            OverrideSchedule = 1
+        }
+
         public enum OpponentType
         {
             Unranked,
@@ -17,5 +23,10 @@ namespace SimplyGreatGames.PokerHoops
             HeadToHead
         }
 
+        public enum CpuType
+        {
+            Unranked,
+            Ranked
+        }
     }
 }

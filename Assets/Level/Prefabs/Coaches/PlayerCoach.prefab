@@ -64,6 +64,8 @@ GameObject:
   - component: {fileID: 9122351817425785690}
   - component: {fileID: 1425942631458319357}
   - component: {fileID: 2526340830648107023}
+  - component: {fileID: 295577421491378266}
+  - component: {fileID: 4693012342894107548}
   m_Layer: 0
   m_Name: PlayerCoach
   m_TagString: Untagged
@@ -100,6 +102,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edccf22f7d426da40bf0108d754c0882, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  coachID: 0
+  coachName: Coach
   hand: {fileID: 8444047163286533571}
   playerStateMachine: {fileID: 1425942631458319357}
   mouseInput: {fileID: 2526340830648107023}
@@ -130,6 +134,40 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isToggledOn: 1
   debugMode: 0
+--- !u!114 &295577421491378266
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8464394335431152163}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45f88669af2e4f24da9c9524aca59cd7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  teamRank: 0
+  RecordData: []
+--- !u!114 &4693012342894107548
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8464394335431152163}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d27f4901302ffdc4c80b57903e10e57d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scheduleLines:
+  - LineNumber: 0
+    OpponentType: 0
+    ScheduleLineData:
+      IsHome: 0
+      Modifier: 0
+      PlayerScore: 0
+      OpponentScore: 0
 --- !u!1001 &9062593111199490491
 PrefabInstance:
   m_ObjectHideFlags: 0

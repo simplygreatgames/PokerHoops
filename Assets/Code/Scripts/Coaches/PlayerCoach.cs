@@ -2,10 +2,11 @@ using UnityEngine;
 
 namespace SimplyGreatGames.PokerHoops
 {
-    [RequireComponent(typeof(PlayerStateMachine))]
+    [RequireComponent(typeof(PlayerStateMachine),typeof(TeamRecord),typeof(TeamSchedule))]
     public class PlayerCoach : Coach
     {
         public TeamSchedule TeamSchedule { get; private set; }
+        public TeamRecord TeamRecord { get; private set; }
 
         #region State & Data
 
@@ -51,6 +52,12 @@ namespace SimplyGreatGames.PokerHoops
 
             if (mouseInput == null)
                 MouseInput = GetComponent<MouseInput>();
+
+            if (TeamSchedule == null)
+                TeamSchedule = GetComponent<TeamSchedule>();
+
+            if (TeamRecord == null)
+                TeamRecord = GetComponent<TeamRecord>();
         }
 
         private void RegisterComponents()

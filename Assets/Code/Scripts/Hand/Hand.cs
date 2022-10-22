@@ -7,7 +7,13 @@ namespace SimplyGreatGames.PokerHoops
     {
         public Coach Owner { get; private set; }
         public HandSlot[] HandSlots { get; private set; }
-        public List<Card> Cards = new List<Card>();
+
+        [Header("Cards")]
+        [SerializeField] private int handScore = -1;
+        public int HandScore { get => handScore; private set => handScore = value; }
+
+        [SerializeField] private List<Card> cards = new List<Card>();
+        public List<Card> Cards { get => cards; private set => cards = value; }
 
         [Header("Debug Settings")]
         public List<Card> DebugCards = new List<Card>();
