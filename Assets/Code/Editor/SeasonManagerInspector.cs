@@ -26,7 +26,7 @@ namespace SimplyGreatGames.PokerHoops
                 };
 
                 seasonManager.LoadNewSeason(seasonSettings);
-                seasonManager.StartSeason();
+                seasonManager.StartSeasonLoaded();
             }
         }
     }

@@ -21,6 +21,8 @@ namespace SimplyGreatGames.PokerHoops
         }
     }
 
+    #region Unranked Game States
+
     public class InitializeGameState : GameState
     {
         public InitializeGameState(GameStateMachine stateMachine) : base(stateMachine) { }
@@ -47,7 +49,6 @@ namespace SimplyGreatGames.PokerHoops
 
         private void SetToDiscardState() => StateMachine.SetGameState(new DiscardState(StateMachine));
     }
-
     public class DiscardState : GameState
     {
         public DiscardState(GameStateMachine stateMachine) : base(stateMachine) { }
@@ -59,7 +60,6 @@ namespace SimplyGreatGames.PokerHoops
             Debug.Log("Ready for Players to Discard");
         }
     }
-
     public class TransferState : GameState
     {
         public TransferState(GameStateMachine stateMachine) : base(stateMachine) { }
@@ -69,7 +69,6 @@ namespace SimplyGreatGames.PokerHoops
             base.OnStateEnter();
         }
     }
-
     public class DrawState : GameState
     {
         public DrawState(GameStateMachine stateMachine) : base(stateMachine) { }
@@ -79,7 +78,6 @@ namespace SimplyGreatGames.PokerHoops
             base.OnStateEnter();
         }
     }
-
     public class ScoreState : GameState
     {
         public ScoreState(GameStateMachine stateMachine) : base(stateMachine) { }
@@ -89,7 +87,6 @@ namespace SimplyGreatGames.PokerHoops
             base.OnStateEnter();
         }
     }
-
     public class OvertimeState : GameState
     {
         public OvertimeState(GameStateMachine stateMachine) : base(stateMachine) { }
@@ -108,4 +105,6 @@ namespace SimplyGreatGames.PokerHoops
             base.OnStateEnter();
         }
     }
+
+    #endregion
 }

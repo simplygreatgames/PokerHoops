@@ -6,6 +6,8 @@ namespace SimplyGreatGames.UI
 {
     public class ButtonController : MonoBehaviour
     {
+        public bool InactivateOnClick = false;
+
         [Range(0f,3f)] public float Cooldown = 0;
 
         private Button button;
@@ -17,13 +19,19 @@ namespace SimplyGreatGames.UI
 
         public void OnButtonEvent()
         {
-            StartCoroutine(DelayButton());
-
-            IEnumerator DelayButton()
-            {
+            if (InactivateOnClick)
                 button.interactable = false;
-                yield return new WaitForSeconds(Cooldown);
-                button.interactable = true;
+
+            else
+            {
+                StartCoroutine(DelayButton());
+
+                IEnumerator DelayButton()
+                {
+                    button.interactable = false;
+                    yield return new WaitForSeconds(Cooldown);
+                    button.interactable = true;
+                }
             }
         }
     }

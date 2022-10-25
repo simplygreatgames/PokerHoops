@@ -30,8 +30,25 @@ namespace SimplyGreatGames.PokerHoops
             CurrentSeason.Settings = seasonSettings;
         }
 
-        public void StartSeason()
+        public void StartNewSeason()
         {
+            SeasonSettings seasonSettings = new SeasonSettings()
+            {
+                NumberOfPlayers = this.NumberOfPlayers
+            };
+
+            LoadNewSeason(seasonSettings);
+            CurrentSeason.StateMachine.SetSeasonState(new StartSeasonState(CurrentSeason.StateMachine));
+        }
+
+        public void StartSeasonLoaded()
+        {
+            if (CurrentSeason == null)
+            {
+                Debug.LogError("Must Load season first or use the startt new season method");
+                return;
+            }
+                
             CurrentSeason.StateMachine.SetSeasonState(new StartSeasonState(CurrentSeason.StateMachine));
         }
 
