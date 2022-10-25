@@ -89,10 +89,30 @@ namespace SimplyGreatGames.PokerHoops
         {
             base.OnStateEnter();
 
-            DealerManager.Instance.BuildDeck();
-            RoundManager.Instance.GenerateRoundOfGames(new DefaultRoundSettings());
+            BuildDeck();
+            StartSeason();
         }
+
+        private void BuildDeck() => DealerManager.Instance.BuildDeck();
+        private void StartSeason() => StateMachine.SetSeasonState(new RunSeasonState(StateMachine));
     }
 
+    public class RunSeasonState : SeasonState
+    {
+        public RunSeasonState(SeasonStateMachine stateMachine) : base(stateMachine) { }
+
+        public override void OnStateEnter()
+        {
+            base.OnStateEnter();
+
+            GenerateNextRoundOfGames();
+        }
+
+        private void GenerateNextRoundOfGames()
+        {
+            RoundManager.Instance.GenerateRoundOfGames();
+            Debug.Log("To Do: Season needs to subscribe to Round Manager to know when Round has been completed");
+        }
+    }
     #endregion
 }

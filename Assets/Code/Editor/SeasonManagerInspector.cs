@@ -12,10 +12,13 @@ namespace SimplyGreatGames.PokerHoops
 
             SeasonManager seasonManager = (SeasonManager)target;
 
-            if (GUILayout.Button("Load New Season"))
+            if (GUILayout.Button("Start New Season"))
             {
                 if (!Application.isPlaying)
+                {
+                    Debug.LogError("Must be In Play Mode to start new Season");
                     return;
+                }
 
                 SeasonSettings seasonSettings = new SeasonSettings()
                 {
@@ -23,13 +26,6 @@ namespace SimplyGreatGames.PokerHoops
                 };
 
                 seasonManager.LoadNewSeason(seasonSettings);
-            }
-
-            else if (GUILayout.Button("Start Season"))
-            {
-                if (!Application.isPlaying)
-                    return;
-
                 seasonManager.StartSeason();
             }
         }

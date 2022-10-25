@@ -23,12 +23,11 @@ namespace SimplyGreatGames.PokerHoops
             set => currentRoundOfGames = value;
         }
 
-        [Header("Round Settings")]
+        [Header("Debug Settings")]
         [SerializeField] private Enums.RoundType roundType;
         public Enums.RoundType RoundType { get => roundType; set => roundType = value; }
 
-        [SerializeField] private Enums.OpponentType opponentTypeOverride;
-        public Enums.OpponentType OpponentTypeOverride { get => opponentTypeOverride; set => opponentTypeOverride = value; }
+        // Replace this with a Round Scriptable
 
         #region Unity Methods
 
@@ -42,7 +41,7 @@ namespace SimplyGreatGames.PokerHoops
 
         #region Saving / Loading Round
 
-        public void GenerateRoundOfGames(RoundSettings roundSettings)
+        public void GenerateRoundOfGames()
         {
             if (gamePrefab == null)
             {
@@ -55,8 +54,8 @@ namespace SimplyGreatGames.PokerHoops
 
             Enums.OpponentType _roundOpponent;
 
-            if (roundSettings.RoundType == Enums.RoundType.OverrideSchedule) _roundOpponent = OpponentTypeOverride;
-            else _roundOpponent = ScheduleManager.Instance.ScheduleScriptable.Opponents[CurrentRound];
+            if (RoundType == Enums.RoundType.OverrideSchedule) Debug.Log("Not Implemented, ToDo if (Roundtype == Override) Use Round Scriptable");
+            _roundOpponent = ScheduleManager.Instance.ScheduleScriptable.Opponents[CurrentRound];
 
             switch (_roundOpponent)
             {
@@ -68,7 +67,7 @@ namespace SimplyGreatGames.PokerHoops
                         GameObject loadedGameObj = Instantiate(gamePrefab, this.transform);
                         Game loadedGame = loadedGameObj.GetComponent<Game>();
 
-                        loadedGame.RoundSettings = roundSettings;
+                        loadedGame.RoundSettings = new DefaultRoundSettings();
                         CurrentRoundOfGames.Add(loadedGame);
                     }
 
@@ -77,13 +76,13 @@ namespace SimplyGreatGames.PokerHoops
                 case Enums.OpponentType.HeadToHead:
 
                     int numberOfGames = (int) Math.Round((double)SeasonManager.Instance.CurrentSeason.Players.Count / 2, MidpointRounding.AwayFromZero);
-                    Debug.Log("Round Manager creating " + numberOfGames + " number of games");
+
                     for (int i = 0; i < numberOfGames; i++)
                     {
                         GameObject loadedGameObj = Instantiate(gamePrefab, this.transform);
                         Game loadedGame = loadedGameObj.GetComponent<Game>();
 
-                        loadedGame.RoundSettings = roundSettings;
+                        loadedGame.RoundSettings = new DefaultRoundSettings();
                         CurrentRoundOfGames.Add(loadedGame);
                     }
 
@@ -96,6 +95,7 @@ namespace SimplyGreatGames.PokerHoops
 
             PlayerPoolManager.Instance.AssignPlayersToGames(CurrentRoundOfGames, _roundOpponent);
             AssignGameParents();
+            StartRound();
         }
 
         private void ClearRoundOfGames()
@@ -110,6 +110,18 @@ namespace SimplyGreatGames.PokerHoops
         {
             foreach (Game game in CurrentRoundOfGames)
                 game.transform.SetParent(gameRoundSpawnPoint);
+        }
+
+        #endregion
+
+        #region Starting And Stopping A Round
+
+        private void StartRound()
+        {
+            foreach (Game game in CurrentRoundOfGames)
+            {
+                game.GameStateMachine.SetGameState(new InitializeGameState(game.GameStateMachine));
+            }
         }
 
         #endregion

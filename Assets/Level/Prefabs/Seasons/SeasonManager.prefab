@@ -45,3 +45,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   seasonPrefab: {fileID: 6247031346668261303, guid: 02b045c50b8cde9498d4e2959609b35c, type: 3}
+  numberOfPlayers: 4

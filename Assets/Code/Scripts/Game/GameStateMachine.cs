@@ -7,7 +7,7 @@ namespace SimplyGreatGames.PokerHoops
 
         public void RegisterStateMachine(Game game) => Game = game;
 
-        public void SetPlayerState(GameState nextState)
+        public void SetGameState(GameState nextState)
         {
             if (CurrentState != null)
                 CurrentState.OnStateExit();

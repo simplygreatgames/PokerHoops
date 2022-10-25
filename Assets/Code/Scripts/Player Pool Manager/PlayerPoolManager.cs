@@ -96,7 +96,7 @@ namespace SimplyGreatGames.PokerHoops
 
         private void CreateUnrankedGroup(Game game, PlayerCoach player)
         {
-            game.PlayersInGame.Add(player);
+            game.CoachesInGame.Add(player);
             player.transform.SetParent(game.transform);
 
             GameObject cpuCoach = Instantiate(CpuPrefab);
@@ -107,7 +107,7 @@ namespace SimplyGreatGames.PokerHoops
 
         private void CreateRankedGroup(Game game, PlayerCoach player)
         {
-            game.PlayersInGame.Add(player);
+            game.CoachesInGame.Add(player);
             player.transform.SetParent(game.transform);
 
             GameObject cpuCoach = Instantiate(CpuPrefab);
@@ -143,8 +143,8 @@ namespace SimplyGreatGames.PokerHoops
                 else // Has not played Player Before
                 {
                     Debug.Log("Adding Player to Game");
-                    game.PlayersInGame.Add(playerMatching);
-                    game.PlayersInGame.Add(potentialOpponent);
+                    game.CoachesInGame.Add(playerMatching);
+                    game.CoachesInGame.Add(potentialOpponent);
 
                     playerMatching.transform.SetParent(game.transform);
                     potentialOpponent.transform.SetParent(game.transform);
