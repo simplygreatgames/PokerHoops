@@ -12,8 +12,8 @@ namespace SimplyGreatGames.PokerHoops
 
             Card card = (Card)target;
 
-            if (GUILayout.Button("Set Card Art"))
-                card.SetCardArt();
+            if (GUILayout.Button("Initialize Card"))
+                card.InitializeCard();
 
             if (GUILayout.Button("Flip Card"))
                 card.FlipCard();

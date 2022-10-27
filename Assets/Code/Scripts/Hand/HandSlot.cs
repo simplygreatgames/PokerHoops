@@ -26,9 +26,15 @@ namespace SimplyGreatGames.PokerHoops
             MoveCardToSlot();
         }
 
-        public void DiscardFromSlot()
+        public void DiscardToDealer(Transform discardDestination)
         {
-            MoveCardToDispile();
+            MoveCardToDispile(discardDestination);
+            IsFilled = false;
+        }
+
+        public void ReleaseCardInSlot()
+        {
+            CardInSlot = null;
             IsFilled = false;
         }
 
@@ -54,9 +60,9 @@ namespace SimplyGreatGames.PokerHoops
             CardPendingSlot = null;
         }
 
-        private void MoveCardToDispile()
+        private void MoveCardToDispile(Transform discardPileTransform)
         {
-            CardInSlot.transform.SetParent(DealerManager.Instance.DiscardPile.transform);
+            CardInSlot.transform.SetParent(discardPileTransform);
             CardInSlot.transform.DOLocalMove(Vector3.zero, 1);
 
             CardInSlot = null;

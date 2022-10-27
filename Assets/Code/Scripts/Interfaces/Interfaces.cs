@@ -6,8 +6,8 @@ namespace SimplyGreatGames.PokerHoops
     {
         public interface IInteractable
         {
-            public void OnLeftClick();
-            public void OnRightClick();
+            public void OnLeftClick(PlayerCoach inputOwner);
+            public void OnRightClick(PlayerCoach inputOwner);
         }
     }
 }

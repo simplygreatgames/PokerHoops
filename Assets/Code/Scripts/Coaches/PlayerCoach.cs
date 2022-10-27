@@ -12,7 +12,7 @@ namespace SimplyGreatGames.PokerHoops
 
         [Header("State Machine")]
         [SerializeField] private PlayerStateMachine playerStateMachine;
-        public PlayerStateMachine PlayerStateMachine
+        public PlayerStateMachine StateMachine
         {
             get => playerStateMachine;
             private set => playerStateMachine = value;
@@ -23,16 +23,36 @@ namespace SimplyGreatGames.PokerHoops
         #region Input
 
         [Header("Input")]
+        [SerializeField] private bool isLocalPlayer = false;
+        public bool IsLocalPlayer 
+        { 
+            get => isLocalPlayer;
+            set
+            {
+                isLocalPlayer = value;
+
+                if (IsLocalPlayer)
+                    GameUIPanel.Instance.RegisterOwner(this);
+            }
+        }
+
         [SerializeField] private MouseInput mouseInput;
         public MouseInput MouseInput
         {
             get => mouseInput;
-            private set => mouseInput= value;
+            private set => mouseInput = value;
+        }
+
+        [SerializeField] private CardController cardController;
+        public CardController CardController
+        {
+            get => cardController;
+            private set => cardController = value;
         }
 
         #endregion
 
-        #region Unity Methods & Initialization
+            #region Unity Methods & Initialization
 
         public void Awake()
         {
@@ -47,11 +67,14 @@ namespace SimplyGreatGames.PokerHoops
             if (Hand == null)
                 Hand = GetComponentInChildren<Hand>();
 
-            if (playerStateMachine == null)
-                PlayerStateMachine = GetComponent<PlayerStateMachine>();
+            if (StateMachine == null)
+                StateMachine = GetComponent<PlayerStateMachine>();
 
-            if (mouseInput == null)
+            if (MouseInput == null)
                 MouseInput = GetComponent<MouseInput>();
+
+            if (CardController == null)
+                CardController = GetComponent<CardController>();
 
             if (TeamSchedule == null)
                 TeamSchedule = GetComponent<TeamSchedule>();
@@ -62,8 +85,10 @@ namespace SimplyGreatGames.PokerHoops
 
         private void RegisterComponents()
         {
+            MouseInput.InputOwner = this;
+            CardController.Owner = this;
             Hand.RegisterHand(this);
-            PlayerStateMachine.RegisterStateMachine(this);
+            StateMachine.RegisterStateMachine(this);
         }
 
         #endregion

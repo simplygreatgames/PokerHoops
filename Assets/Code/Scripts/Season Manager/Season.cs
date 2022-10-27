@@ -29,8 +29,8 @@ namespace SimplyGreatGames.PokerHoops
 
         [Header("Info")]
 
-        [SerializeField] private List<PlayerCoach> players = null;
-        public List<PlayerCoach> Players { get => players; set => players = value; }
+        [SerializeField] private List<PlayerCoach> playerCoaches = null;
+        public List<PlayerCoach> PlayerCoaches { get => playerCoaches; set => playerCoaches = value; }
 
         [SerializeField] private SeasonStats stats = null;
         public SeasonStats Stats { get => stats; set => stats = value; }

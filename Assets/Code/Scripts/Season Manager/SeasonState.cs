@@ -46,9 +46,9 @@ namespace SimplyGreatGames.PokerHoops
 
         private void PullPlayersFromPool()
         {
-            StateMachine.Season.Players = PlayerPoolManager.Instance.PlayerPool;
+            StateMachine.Season.PlayerCoaches = PlayerPoolManager.Instance.PlayerPool;
 
-            if (StateMachine.Season.Players.Count == 0)
+            if (StateMachine.Season.PlayerCoaches.Count == 0)
             {
                 Debug.LogWarning("Did not find any players in the pull");
                 initializeWasSuccess = false;
@@ -105,7 +105,14 @@ namespace SimplyGreatGames.PokerHoops
         {
             base.OnStateEnter();
 
+            SetPlayersToRunSeasonState();
             GenerateNextRoundOfGames();
+        }
+
+        private void SetPlayersToRunSeasonState()
+        {
+            foreach (PlayerCoach playerCoach in StateMachine.Season.PlayerCoaches)
+                playerCoach.StateMachine.SetPlayerState(new StartSeasonPlayerState(playerCoach.StateMachine));
         }
 
         private void GenerateNextRoundOfGames()

@@ -31,8 +31,21 @@ namespace SimplyGreatGames.PokerHoops
         {
             base.OnStateEnter();
 
+            SetPlayersToInGameState();
             DrawPlayerCoachStartingHand();
             SetToDiscardState();
+        }
+
+        private void SetPlayersToInGameState()
+        {
+            foreach (Coach coach in StateMachine.Game.CoachesInGame)
+            {
+                if (coach is PlayerCoach)
+                {
+                    PlayerCoach playerCoach = (PlayerCoach) coach;
+                    playerCoach.StateMachine.SetPlayerState(new InGameInactiveState(playerCoach.StateMachine));
+                }
+            }
         }
 
         private void DrawPlayerCoachStartingHand()
@@ -40,10 +53,7 @@ namespace SimplyGreatGames.PokerHoops
             foreach (Coach coach in StateMachine.Game.CoachesInGame)
             {
                 if (coach.GetType() == typeof(PlayerCoach))
-                {
                     DealerManager.Instance.Deck.DrawFromDeck(StateMachine.Game.RoundSettings.StartingHandNumber, coach);
-                    Debug.Log("Drawing Starting Hand For Coach: " + coach.gameObject.name);
-                }
             }
         }
 
@@ -56,10 +66,29 @@ namespace SimplyGreatGames.PokerHoops
         public override void OnStateEnter()
         {
             base.OnStateEnter();
+            ToggleLocalPlayerInputState();
+        }
 
-            Debug.Log("Ready for Players to Discard");
+        public override void OnStateExit()
+        {
+            base.OnStateEnter();
+        }
+
+        private void ToggleLocalPlayerInputState()
+        {
+            foreach (Coach coach in StateMachine.Game.CoachesInGame)
+            {
+                if (coach is PlayerCoach)
+                {
+                    PlayerCoach playerCoach = (PlayerCoach)coach;
+
+                    if (playerCoach.IsLocalPlayer) 
+                        playerCoach.StateMachine.SetPlayerState(new DiscardActiveState(playerCoach.StateMachine));
+                }
+            }
         }
     }
+
     public class TransferState : GameState
     {
         public TransferState(GameStateMachine stateMachine) : base(stateMachine) { }
@@ -67,7 +96,9 @@ namespace SimplyGreatGames.PokerHoops
         public override void OnStateEnter()
         {
             base.OnStateEnter();
+
         }
+
     }
     public class DrawState : GameState
     {

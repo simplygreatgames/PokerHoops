@@ -12,11 +12,14 @@ namespace SimplyGreatGames.PokerHoops
 
             Hand hand = (Hand)target;
 
-            if (GUILayout.Button("Add Cards To Hand"))
-                hand.Debug_AddCardsToHand();
+            if (GUILayout.Button("Draw Card"))
+                hand.Debug_DrawCard();
 
-            if (GUILayout.Button("Remove Cards From Hand"))
-                hand.Debug_RemoveCardsFromHand();
+            if (GUILayout.Button("Discard To Dealer"))
+                hand.Debug_DiscardToDealer();
+
+            if (GUILayout.Button("Discard To Opponent"))
+                hand.Debug_DiscardToOpponent();
         }
     }
 }

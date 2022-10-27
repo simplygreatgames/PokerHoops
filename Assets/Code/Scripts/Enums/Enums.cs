@@ -28,5 +28,12 @@ namespace SimplyGreatGames.PokerHoops
             Unranked,
             Ranked
         }
+
+        public enum DiscardType
+        {
+            ToDealer = 0,
+            ToOpponent = 1
+        }
+
     }
 }

@@ -4,6 +4,8 @@ namespace SimplyGreatGames.PokerHoops
 {
     public class Coach : MonoBehaviour
     {
+        [Header("Coach Information")]
+
         [SerializeField] private int coachID = 0;
         public int CoachID { get => coachID; set => coachID = value; }
 
@@ -18,15 +20,18 @@ namespace SimplyGreatGames.PokerHoops
             }
         }
 
-        #region Card Properties
-
-        [SerializeField] private Hand hand;
-        public Hand Hand
-        {
-            get => hand;
-            set => hand = value;
+        [Header("Game Information")]
+        [SerializeField] private Game currentGame;
+        public Game CurrentGame 
+        { 
+            get => currentGame; 
+            set 
+            { 
+                currentGame = value;
+            } 
         }
 
-        #endregion
+        [SerializeField] private Hand hand;
+        public Hand Hand { get => hand; set => hand = value; }
     }
 }

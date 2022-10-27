@@ -64,6 +64,7 @@ GameObject:
   - component: {fileID: 9122351817425785690}
   - component: {fileID: 1425942631458319357}
   - component: {fileID: 2526340830648107023}
+  - component: {fileID: 5701146503255957142}
   - component: {fileID: 295577421491378266}
   - component: {fileID: 4693012342894107548}
   m_Layer: 0
@@ -102,11 +103,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edccf22f7d426da40bf0108d754c0882, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isLocalPlayer: 0
   coachID: 0
   coachName: Coach
+  currentGame: {fileID: 0}
   hand: {fileID: 8444047163286533571}
   playerStateMachine: {fileID: 1425942631458319357}
   mouseInput: {fileID: 2526340830648107023}
+  cardController: {fileID: 0}
 --- !u!114 &1425942631458319357
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -132,8 +136,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4620cbcf0a65e1444a9cd1ca803c3427, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isToggledOn: 1
+  isToggledOn: 0
   debugMode: 0
+--- !u!114 &5701146503255957142
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8464394335431152163}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd3c86949496b404682ece7b922f352a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &295577421491378266
 MonoBehaviour:
   m_ObjectHideFlags: 0

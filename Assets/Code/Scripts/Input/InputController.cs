@@ -4,6 +4,7 @@ namespace SimplyGreatGames.PokerHoops
 {
     public abstract class InputController : MonoBehaviour
     {
+        public abstract PlayerCoach InputOwner { get; set; }
         public abstract void InitializeInput(bool value);
 
         public delegate void LeftClickedObject(GameObject gameObject);

@@ -14,11 +14,32 @@ namespace SimplyGreatGames.PokerHoops
         }
 
         [Header("Game Info")]
-        [SerializeField] private List<PlayerCoach> playersInGame;
-        public List<PlayerCoach> CoachesInGame { get => playersInGame; set => playersInGame = value; }
+        [SerializeField] private List<Coach> coachesInGame;
+        public List<Coach> CoachesInGame 
+        { 
+            get => coachesInGame;
+            set => coachesInGame = value;
+        }
 
         [Header("State Machine")]
-        [SerializeField] private GameStateMachine gameStateMachine;
-        public GameStateMachine GameStateMachine { get => gameStateMachine; private set => gameStateMachine = value; }
+        [SerializeField] private GameStateMachine stateMachine;
+        public GameStateMachine StateMachine { get => stateMachine; private set => stateMachine = value; }
+
+        public void Awake()
+        {
+            GetComponents();    
+        }
+
+        private void GetComponents()
+        {
+            if (StateMachine == null)
+                StateMachine = GetComponent<GameStateMachine>();
+        }
+
+        public void RegisterCoachesInGame()
+        {
+            foreach (Coach coachInGame in CoachesInGame)
+                coachInGame.CurrentGame = this;
+        }
     }
 }

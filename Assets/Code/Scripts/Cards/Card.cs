@@ -5,7 +5,7 @@ namespace SimplyGreatGames.PokerHoops
 {
     public class Card : MonoBehaviour, Interfaces.IInteractable
     {
-        [Header("Data")]
+        [Header("Run Time Data")]
         [SerializeField] private CardScriptable cardScriptable;
         public CardScriptable CardScriptable
         {
@@ -13,9 +13,9 @@ namespace SimplyGreatGames.PokerHoops
             set
             {
                 cardScriptable = value;
-                SetCardArt();
-                SetCardSuit();
-                SetCardValue();
+
+                if (CardScriptable != null) InitializeCard();
+                else DeinitializeCard();
             }
         }
 
@@ -29,6 +29,14 @@ namespace SimplyGreatGames.PokerHoops
                 SetCardArt();
             }
         }
+
+        [SerializeField] private bool isToBeDiscarded = false;
+        public bool IsToBeDiscarded { get => isToBeDiscarded; private set => isToBeDiscarded = value; }
+        [SerializeField] private Coach currentOwner = null;
+        public Coach CurrentOwner { get => currentOwner; private set => currentOwner = value; }
+
+        [SerializeField] private int currentSlot = -1;
+        public int CurrentSlot { get => currentSlot; private set => currentSlot = value; }
 
         [Header("Components")]
         [SerializeField] private Animator animator;
@@ -74,9 +82,43 @@ namespace SimplyGreatGames.PokerHoops
 
         #endregion
 
+        #region Owner Methods
+
+        public void RegisterOwner(Coach newOwner, int slot)
+        {
+            CurrentOwner = newOwner;
+            CurrentSlot = slot;
+            IsToBeDiscarded = false;
+        }
+
+        public void DeregisterOwner()
+        {
+            CurrentOwner = null;
+            CurrentSlot = -1;
+        }
+
+        public void DeclareForDiscard(bool isToBeDiscarded) => IsToBeDiscarded = isToBeDiscarded;
+
+        #endregion
+
         #region Card Scriptable Methods
 
-        public void SetCardArt()
+        public void InitializeCard()
+        {
+            SetCardArt();
+            SetCardSuit();
+            SetCardValue();
+        }
+        public void DeinitializeCard()
+        {
+            SuitSprite.sprite = null;
+            ValueSprite.sprite = null;
+            FrameSprite.sprite = null;
+            ArtSprite.sprite = null;
+            BackSprite.sprite = null;
+        }
+
+        private void SetCardArt()
         {
             if (CardScriptable != null)
             {
@@ -90,7 +132,7 @@ namespace SimplyGreatGames.PokerHoops
                 BackSprite.sprite = CardBackScriptable.Sprite;
         }
 
-        public void SetCardSuit()
+        private void SetCardSuit()
         {
             if (CardScriptable == null)
             {
@@ -101,7 +143,7 @@ namespace SimplyGreatGames.PokerHoops
             Suit = CardScriptable.Suit;
         }
 
-        public void SetCardValue()
+        private void SetCardValue()
         {
             if (CardScriptable == null)
             {
@@ -126,14 +168,19 @@ namespace SimplyGreatGames.PokerHoops
 
         #region IInteractable Interface
 
-        public void OnLeftClick()
+        public void OnLeftClick(PlayerCoach inputOwner)
         {
-            Debug.Log("Left Clicked: " + CardScriptable.name);
+            Debug.Log("Coach with ID: " + inputOwner.CoachID + " Left Clicked: " + CardScriptable.name);
+
+            inputOwner.CardController.OnCardLeftClicked(this);
         }
 
-        public void OnRightClick()
+        public void OnRightClick(PlayerCoach inputOwner)
         {
-            Debug.Log("Right Clicked: " + CardScriptable.name);
+            Debug.Log("Coach with ID: " + inputOwner.CoachID + " Right Clicked: " + CardScriptable.name);
+
+            inputOwner.CardController.OnCardRightClicked(this);
+
         }
 
         #endregion

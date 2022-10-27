@@ -37,7 +37,12 @@ namespace SimplyGreatGames.PokerHoops
             for (int i = 0; i < numberOfPlayers; i++)
             {
                 GameObject playerObj = Instantiate(PlayerPrefab, playerPoolSpawnPoint);
-                AddPlayerToPool(playerObj.GetComponent<PlayerCoach>());
+                PlayerCoach playerCoach = playerObj.GetComponent<PlayerCoach>();
+
+                if (i == 0)
+                    playerCoach.IsLocalPlayer = true;
+
+                AddPlayerToPool(playerCoach);
             }
         }
 
@@ -99,10 +104,14 @@ namespace SimplyGreatGames.PokerHoops
             game.CoachesInGame.Add(player);
             player.transform.SetParent(game.transform);
 
-            GameObject cpuCoach = Instantiate(CpuPrefab);
-            cpuCoach.transform.SetParent(game.transform);
+            GameObject cpuCoachObj = Instantiate(CpuPrefab);
+            cpuCoachObj.transform.SetParent(game.transform);
 
-            cpuCoach.GetComponent<CPUCoach>().CpuType = Enums.CpuType.Unranked;
+            CPUCoach cpuCoach = cpuCoachObj.GetComponent<CPUCoach>();
+            cpuCoach.CpuType = Enums.CpuType.Unranked;
+
+            game.CoachesInGame.Add(cpuCoach);
+            game.RegisterCoachesInGame();
         }
 
         private void CreateRankedGroup(Game game, PlayerCoach player)
@@ -110,10 +119,14 @@ namespace SimplyGreatGames.PokerHoops
             game.CoachesInGame.Add(player);
             player.transform.SetParent(game.transform);
 
-            GameObject cpuCoach = Instantiate(CpuPrefab);
-            cpuCoach.transform.SetParent(game.transform);
+            GameObject cpuCoachObj = Instantiate(CpuPrefab);
+            cpuCoachObj.transform.SetParent(game.transform);
 
-            cpuCoach.GetComponent<CPUCoach>().CpuType = Enums.CpuType.Ranked;
+            CPUCoach cpuCoach = cpuCoachObj.GetComponent<CPUCoach>();
+            cpuCoach.CpuType = Enums.CpuType.Ranked;
+
+            game.CoachesInGame.Add(cpuCoach);
+            game.RegisterCoachesInGame();
         }
 
         private void CreateHeadtoHeadGroup(Game game)
@@ -145,6 +158,7 @@ namespace SimplyGreatGames.PokerHoops
                     Debug.Log("Adding Player to Game");
                     game.CoachesInGame.Add(playerMatching);
                     game.CoachesInGame.Add(potentialOpponent);
+                    game.RegisterCoachesInGame();
 
                     playerMatching.transform.SetParent(game.transform);
                     potentialOpponent.transform.SetParent(game.transform);

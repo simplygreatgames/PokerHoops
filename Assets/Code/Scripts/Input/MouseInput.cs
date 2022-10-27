@@ -5,11 +5,13 @@ namespace SimplyGreatGames.PokerHoops
 {
     public class MouseInput : InputController
     {
-        [SerializeField] private bool isToggledOn;
-        public bool IsToggledOn
+        public override PlayerCoach InputOwner { get; set; }
+
+        [SerializeField] private bool isReadingCards;
+        public bool IsReadingCards
         {
-            get => isToggledOn;
-            set => isToggledOn = value;
+            get => isReadingCards;
+            set => isReadingCards = value;
         }
 
         [SerializeField] private bool debugMode;
@@ -32,6 +34,9 @@ namespace SimplyGreatGames.PokerHoops
 
         public void Update()
         {
+            if (IsReadingCards == false)
+                return;
+
             if (Input.GetMouseButtonUp(0))
                 LeftClick();
 
@@ -65,7 +70,7 @@ namespace SimplyGreatGames.PokerHoops
                 if (objectHit.transform.TryGetComponent(out Interfaces.IInteractable _interactable))
                 {
                     Event_Invoke_OnLeftClickedObject(objectHit.transform.gameObject);
-                    _interactable.OnLeftClick();
+                    _interactable.OnLeftClick(InputOwner);
                 }
             }
         }
@@ -82,7 +87,7 @@ namespace SimplyGreatGames.PokerHoops
                 if (objectHit.transform.TryGetComponent(out Interfaces.IInteractable _interactable))
                 {
                     Event_Invoke_OnLeftClickedObject(objectHit.transform.gameObject);
-                    _interactable.OnRightClick();
+                    _interactable.OnRightClick(InputOwner);
                 }
             }
         }

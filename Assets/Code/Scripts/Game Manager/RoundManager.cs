@@ -23,6 +23,13 @@ namespace SimplyGreatGames.PokerHoops
             set => currentRoundOfGames = value;
         }
 
+        [SerializeField] private List<Game> currentRoundOfGamesComplete;
+        public List<Game> CurrentRoundOfGamesComplete
+        {
+            get => currentRoundOfGamesComplete;
+            set => currentRoundOfGamesComplete = value;
+        }
+
         [Header("Debug Settings")]
         [SerializeField] private Enums.RoundType roundType;
         public Enums.RoundType RoundType { get => roundType; set => roundType = value; }
@@ -62,7 +69,7 @@ namespace SimplyGreatGames.PokerHoops
                 case Enums.OpponentType.Unranked:
                 case Enums.OpponentType.Ranked:
 
-                    for (int i = 0; i < SeasonManager.Instance.CurrentSeason.Players.Count; i++)
+                    for (int i = 0; i < SeasonManager.Instance.CurrentSeason.PlayerCoaches.Count; i++)
                     {
                         GameObject loadedGameObj = Instantiate(gamePrefab, this.transform);
                         Game loadedGame = loadedGameObj.GetComponent<Game>();
@@ -75,7 +82,7 @@ namespace SimplyGreatGames.PokerHoops
 
                 case Enums.OpponentType.HeadToHead:
 
-                    int numberOfGames = (int) Math.Round((double)SeasonManager.Instance.CurrentSeason.Players.Count / 2, MidpointRounding.AwayFromZero);
+                    int numberOfGames = (int) Math.Round((double)SeasonManager.Instance.CurrentSeason.PlayerCoaches.Count / 2, MidpointRounding.AwayFromZero);
 
                     for (int i = 0; i < numberOfGames; i++)
                     {
@@ -94,6 +101,8 @@ namespace SimplyGreatGames.PokerHoops
             }
 
             PlayerPoolManager.Instance.AssignPlayersToGames(CurrentRoundOfGames, _roundOpponent);
+
+            AssignActiveGame();
             AssignGameParents();
             StartRound();
         }
@@ -104,6 +113,23 @@ namespace SimplyGreatGames.PokerHoops
 
             foreach (Transform transform in gameRoundSpawnPoint.transform)
                 Destroy(transform.gameObject);
+        }
+
+        private void AssignActiveGame()
+        {
+            foreach (var game in CurrentRoundOfGames)
+            {
+                foreach (var coach in game.CoachesInGame)
+                {
+                    if (coach is PlayerCoach)
+                    {
+                        PlayerCoach playerCoach = (PlayerCoach)coach;
+
+                        if (playerCoach.IsLocalPlayer)
+                            ActiveGameInterface.Instance.ActiveGame = game;
+                    }
+                }
+            }
         }
 
         private void AssignGameParents()
@@ -120,8 +146,29 @@ namespace SimplyGreatGames.PokerHoops
         {
             foreach (Game game in CurrentRoundOfGames)
             {
-                game.GameStateMachine.SetGameState(new InitializeGameState(game.GameStateMachine));
+                game.StateMachine.SetGameState(new InitializeGameState(game.StateMachine));
             }
+        }
+
+        private void StopRound()
+        {
+
+        }
+
+        private void MoveRound()
+        {
+            Debug.Log("Round of games are ready to move to next phase");
+        }
+
+        public void MarkGameComplete(Game gameCompleted)
+        {
+            if (!CurrentRoundOfGamesComplete.Contains(gameCompleted))
+                CurrentRoundOfGamesComplete.Add(gameCompleted);
+
+            if (CurrentRoundOfGamesComplete.Count == CurrentRoundOfGames.Count)
+                MoveRound();
+
+            else Debug.Log("Round completed! Waiting for other games to complete");
         }
 
         #endregion

@@ -12,12 +12,16 @@ namespace SimplyGreatGames.PokerHoops
         [SerializeField] private int handScore = -1;
         public int HandScore { get => handScore; private set => handScore = value; }
 
-        [SerializeField] private List<Card> cards = new List<Card>();
-        public List<Card> Cards { get => cards; private set => cards = value; }
-
         [Header("Debug Settings")]
         public List<Card> DebugCards = new List<Card>();
         public DiscardPile DebugDiscardPile = null;
+
+        #region Hand Events
+
+        public delegate void HandChange(List<Card> cardsInHand);
+        public event HandChange OnHandChange;
+
+        #endregion
 
         #region Unity Methods / Initialize 
 
@@ -52,23 +56,44 @@ namespace SimplyGreatGames.PokerHoops
             }
 
             bool slotFound = false;
+            int slotIndex = -1;
 
-            foreach (HandSlot handSlot in HandSlots)
+            for (int i = 0; i < HandSlots.Length; i++)
             {
-                if (!handSlot.IsFilled)
+                if (!HandSlots[i].IsFilled)
                 {
-                    handSlot.AddToSlot(card);
-                    Cards.Add(card);
+                    HandSlots[i].AddToSlot(card);
                     slotFound = true;
+                    slotIndex = i;
                     break;
                 }
             }
 
             if (slotFound == false)
+            {
                 Debug.Log("Could not find empty slot to place card");
+                return;
+            }
+
+            card.RegisterOwner(Owner, slotIndex);
+            OnHandChange?.Invoke(GetCardsFromHand());
         }
 
-        public void DiscardFromHand(HandSlot handSlot)
+        public void DiscardMarkedCards()
+        {
+            foreach (HandSlot handSlot in HandSlots)
+            {
+                if (handSlot.IsFilled && handSlot.CardInSlot.IsToBeDiscarded)
+                    DiscardFromHandSlot(handSlot, Enums.DiscardType.ToOpponent);
+            }
+        }
+
+        public void DiscardCard(Card card, Enums.DiscardType discardType)
+        {
+            DiscardFromHandSlot(HandSlots[card.CurrentSlot], discardType);
+        }
+
+        public void DiscardFromHandSlot(HandSlot handSlot, Enums.DiscardType discardType)
         {
             if (handSlot.CardInSlot == null)
             {
@@ -76,39 +101,79 @@ namespace SimplyGreatGames.PokerHoops
                 return;
             }
 
-            if (Cards.Contains(handSlot.CardInSlot))
+            handSlot.CardInSlot.DeregisterOwner();
+
+            switch (discardType)
             {
-                Cards.Remove(handSlot.CardInSlot);
-                handSlot.DiscardFromSlot();
+                case Enums.DiscardType.ToDealer:
+                    handSlot.DiscardToDealer(DealerManager.Instance.DiscardPile.transform);
+                    break;
+
+                case Enums.DiscardType.ToOpponent:
+                    foreach (var otherCoach in Owner.CurrentGame.CoachesInGame)
+                    {
+                        if (otherCoach.CoachID != Owner.CoachID)
+                        {
+                            otherCoach.Hand.AddToHand(handSlot.CardInSlot);
+                            handSlot.ReleaseCardInSlot();
+                        }
+                    }
+                    break;
+
+                default:
+                    Debug.Log("Discard Type {discardType} Not Found");
+                    break;
             }
 
-            else Debug.LogWarning("Trying to remove card in slot but card doesn't exist in the list: " + handSlot.CardInSlot.name);
+            OnHandChange?.Invoke(GetCardsFromHand());
         }
 
         #endregion
 
         #region Helpers
 
-        private bool IsCardAlreadyInHand(Card card)
+        public List<Card> GetCardsFromHand()
         {
-            if (Cards.Contains(card)) return true;
-            else return false;
+            List<Card> cardsInHand = new List<Card>();
+
+            foreach (HandSlot handSlot in HandSlots)
+            {
+                if (handSlot.CardPendingSlot != null)
+                    cardsInHand.Add(handSlot.CardPendingSlot);
+
+                else if (handSlot.IsFilled && handSlot.CardInSlot != null)
+                    cardsInHand.Add(handSlot.CardInSlot);
+            }
+
+            return cardsInHand;
+        }
+
+        public bool IsCardAlreadyInHand(Card card)
+        {
+            bool isDuplicateInHand = false;
+
+            foreach (HandSlot handSlot in HandSlots)
+            {
+                if (handSlot.IsFilled && handSlot.CardInSlot == card)
+                    isDuplicateInHand = true;
+            }
+
+            return isDuplicateInHand;
         }
 
         #endregion
 
         #region Debug Methods
 
-        public void Debug_AddCardsToHand()
+        public void Debug_DrawCard()
         {
             if (!Application.isPlaying)
                 return;
 
-            foreach (Card card in DebugCards)
-                AddToHand(card);
+            DealerManager.Instance.Deck.DrawFromDeck(1, Owner);
         }
 
-        public void Debug_RemoveCardsFromHand()
+        public void Debug_DiscardToDealer()
         {
             if (!Application.isPlaying)
                 return;
@@ -116,7 +181,25 @@ namespace SimplyGreatGames.PokerHoops
             foreach (HandSlot handSlot in HandSlots)
             {
                 if (handSlot.IsFilled)
-                    DiscardFromHand(handSlot);
+                {
+                    DiscardFromHandSlot(handSlot, Enums.DiscardType.ToDealer);
+                    break;
+                }
+            }
+        }
+
+        public void Debug_DiscardToOpponent()
+        {
+            if (!Application.isPlaying)
+                return;
+
+            foreach (HandSlot handSlot in HandSlots)
+            {
+                if (handSlot.IsFilled)
+                {
+                    DiscardFromHandSlot(handSlot, Enums.DiscardType.ToOpponent);
+                    break;
+                }
             }
         }
 
