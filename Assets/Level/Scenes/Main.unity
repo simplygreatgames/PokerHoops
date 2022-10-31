@@ -132,7 +132,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1600535694112091829, guid: 8e9eac10d378fd84da453333c739b295, type: 3}
       propertyPath: InactivateOnClick
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2300378683406536958, guid: 8e9eac10d378fd84da453333c739b295, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
@@ -164,7 +164,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3597483566324462578, guid: 8e9eac10d378fd84da453333c739b295, type: 3}
       propertyPath: m_Name
-      value: Start Season Button
+      value: StartSeasonButton
       objectReference: {fileID: 0}
     - target: {fileID: 3743910901898605676, guid: 8e9eac10d378fd84da453333c739b295, type: 3}
       propertyPath: m_text
@@ -548,7 +548,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5726156693762374585, guid: 9d19d320f5ceefe49be3c962b64011a4, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5726156693762374585, guid: 9d19d320f5ceefe49be3c962b64011a4, type: 3}
       propertyPath: m_LocalPosition.z
@@ -788,7 +788,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7886137242543922926, guid: 1fd14ea27af17d74a8ed9b4ea513c4b2, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7886137242543922926, guid: 1fd14ea27af17d74a8ed9b4ea513c4b2, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1443,13 +1443,41 @@ PrefabInstance:
       propertyPath: m_Interactable
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2300378683406536958, guid: 8e9eac10d378fd84da453333c739b295, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300378683406536958, guid: 8e9eac10d378fd84da453333c739b295, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300378683406536958, guid: 8e9eac10d378fd84da453333c739b295, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 2061662453}
+    - target: {fileID: 2300378683406536958, guid: 8e9eac10d378fd84da453333c739b295, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300378683406536958, guid: 8e9eac10d378fd84da453333c739b295, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: OnDiscardButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300378683406536958, guid: 8e9eac10d378fd84da453333c739b295, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: SimplyGreatGames.PokerHoops.GameUIPanel, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300378683406536958, guid: 8e9eac10d378fd84da453333c739b295, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 3597483566324462578, guid: 8e9eac10d378fd84da453333c739b295, type: 3}
       propertyPath: m_Name
-      value: Discard Button
+      value: DiscardButton
       objectReference: {fileID: 0}
     - target: {fileID: 3597483566324462578, guid: 8e9eac10d378fd84da453333c739b295, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3743910901898605676, guid: 8e9eac10d378fd84da453333c739b295, type: 3}
       propertyPath: m_text
@@ -1712,6 +1740,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5295541442724745985, guid: 5cac6456d95e4d64c8fdb6ac360ac958, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 4.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5295541442724745985, guid: 5cac6456d95e4d64c8fdb6ac360ac958, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.25
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5cac6456d95e4d64c8fdb6ac360ac958, type: 3}
 --- !u!1001 &42535294801305483
@@ -1852,7 +1888,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3996348172013703441, guid: 8bdb207275efb6c4cb44b555ea3a94aa, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 3996348172013703441, guid: 8bdb207275efb6c4cb44b555ea3a94aa, type: 3}
       propertyPath: m_LocalPosition.z

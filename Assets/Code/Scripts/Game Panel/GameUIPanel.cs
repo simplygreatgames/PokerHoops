@@ -41,6 +41,10 @@ namespace SimplyGreatGames.PokerHoops
             Owner = newOwner;
         }
 
+        #endregion 
+
+        #region Buttons
+
         public void ToggleButtonEnabled(PlayerCoach requestingCoach, string buttonName, bool toggleValue)
         {
             if (!requestingCoach.IsLocalPlayer)

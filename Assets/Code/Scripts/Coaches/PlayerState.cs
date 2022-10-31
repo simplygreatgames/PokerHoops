@@ -77,7 +77,7 @@ namespace SimplyGreatGames.PokerHoops
         }
     }
 
-    public class DiscardActiveState : PlayerState
+    public class DiscardActiveState : PlayerState, Interfaces.IHandleCards
     {
         public DiscardActiveState(PlayerStateMachine stateMachine) : base(stateMachine) { }
 
@@ -99,29 +99,37 @@ namespace SimplyGreatGames.PokerHoops
             GameUIPanel.Instance.ToggleButtonInteractable(StateMachine.PlayerCoach, "DiscardButton", true);
         }
 
-        public void OnCardClicked(Card cardClicked)
+        private void DeclareCardForDiscard(Card cardClicked)
         {
-            if (cardClicked.CurrentOwner == StateMachine.PlayerCoach)
-            {
-                ToggleDiscardStatus(cardClicked);
-            }
-
-            else
-            {
-                ToggleDontOwnCard(cardClicked);
-            }
-        }
-
-        private void ToggleDiscardStatus(Card cardClicked)
-        {
-            Debug.Log("I own this card! Setting to Discard State");
             cardClicked.DeclareForDiscard(!cardClicked.IsToBeDiscarded);
         }
 
-        private void ToggleDontOwnCard(Card cardClicked)
+        private void PlayRejectDiscardAnimation(Card cardClicked)
         {
-            Debug.Log("Silly me, I don't own " + cardClicked.CardScriptable.name);
+            Debug.Log("Playing Reject Discard Animation for " + cardClicked.CardScriptable.name);
         }
+
+        #region IHandleCards Interface
+
+        public void OnCardClicked(Card cardClicked, Enums.MouseInputType mouseInputType)
+        {
+            switch (mouseInputType)
+            {
+                case Enums.MouseInputType.LeftClicked:
+                    if (cardClicked.CurrentOwner == StateMachine.PlayerCoach) DeclareCardForDiscard(cardClicked);
+                    else PlayRejectDiscardAnimation(cardClicked);
+
+                    break;
+
+                case Enums.MouseInputType.RightClicked:
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+        #endregion
     }
 
     #endregion

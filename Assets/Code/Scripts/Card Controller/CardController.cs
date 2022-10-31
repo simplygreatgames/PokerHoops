@@ -8,29 +8,24 @@ namespace SimplyGreatGames.PokerHoops
 
         public Card ActiveCard { get; private set; }
 
-        public void OnCardLeftClicked(Card card)
+        public void OnCardClicked(Card cardClicked, Enums.MouseInputType mouseInputType)
         {
-            if (card.CurrentOwner != null && card.CurrentOwner.CoachID != Owner.CoachID)
+            if (cardClicked.CurrentOwner != null && cardClicked.CurrentOwner.CoachID != Owner.CoachID)
                 return;
 
-            ActiveCard = card;
-            DetermineAction();
+            ActiveCard = cardClicked;
+            DetermineAction(cardClicked, mouseInputType);
         }
 
-        public void OnCardRightClicked(Card card)
+        private void DetermineAction(Card cardClicked, Enums.MouseInputType mouseInputType)
         {
+            PlayerState currentPlayerState = Owner.StateMachine.CurrentState;
 
-        }
-
-        private void DetermineAction()
-        {
-            if (Owner.CurrentGame.StateMachine.CurrentState.GetType() == typeof(DiscardState))
-                ToggleDiscard();
-        }
-
-        private void ToggleDiscard()
-        {
-            ActiveCard.DeclareForDiscard(!ActiveCard.IsToBeDiscarded);
+            if (currentPlayerState is Interfaces.IHandleCards)
+            {
+                Interfaces.IHandleCards cardHandlerState = (Interfaces.IHandleCards) currentPlayerState;
+                cardHandlerState.OnCardClicked(cardClicked, mouseInputType);
+            }
         }
     }
 }

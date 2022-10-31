@@ -35,5 +35,10 @@ namespace SimplyGreatGames.PokerHoops
             ToOpponent = 1
         }
 
+        public enum MouseInputType
+        {
+            LeftClicked,
+            RightClicked
+        }
     }
 }

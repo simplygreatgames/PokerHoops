@@ -58,7 +58,6 @@ namespace SimplyGreatGames.PokerHoops
         [SerializeField] private SpriteRenderer backSprite;
         public SpriteRenderer BackSprite { get { return backSprite; } private set { backSprite = value; } }
 
-
         public Enums.CardSuits Suit { get; private set; }
         public int Value { get; private set; }
 
@@ -170,17 +169,12 @@ namespace SimplyGreatGames.PokerHoops
 
         public void OnLeftClick(PlayerCoach inputOwner)
         {
-            Debug.Log("Coach with ID: " + inputOwner.CoachID + " Left Clicked: " + CardScriptable.name);
-
-            inputOwner.CardController.OnCardLeftClicked(this);
+            inputOwner.CardController.OnCardClicked(this, Enums.MouseInputType.LeftClicked);
         }
 
         public void OnRightClick(PlayerCoach inputOwner)
         {
-            Debug.Log("Coach with ID: " + inputOwner.CoachID + " Right Clicked: " + CardScriptable.name);
-
-            inputOwner.CardController.OnCardRightClicked(this);
-
+            inputOwner.CardController.OnCardClicked(this, Enums.MouseInputType.RightClicked);
         }
 
         #endregion
