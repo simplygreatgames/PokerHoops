@@ -25,6 +25,8 @@ namespace SimplyGreatGames.PokerHoops
         [SerializeField] private GameStateMachine stateMachine;
         public GameStateMachine StateMachine { get => stateMachine; private set => stateMachine = value; }
 
+        #region Unity Methods & Initialization
+
         public void Awake()
         {
             GetComponents();    
@@ -41,5 +43,8 @@ namespace SimplyGreatGames.PokerHoops
             foreach (Coach coachInGame in CoachesInGame)
                 coachInGame.CurrentGame = this;
         }
+
+        #endregion
+
     }
 }

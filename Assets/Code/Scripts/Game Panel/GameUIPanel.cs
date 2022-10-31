@@ -95,8 +95,7 @@ namespace SimplyGreatGames.PokerHoops
 
         public void OnDiscardButton()
         {
-            Owner.Hand.DiscardMarkedCards();
-            RoundManager.Instance.MarkGameComplete(Owner.CurrentGame);
+            Owner.CurrentGame.StateMachine.SetGameState(new TransferState(Owner.CurrentGame.StateMachine));
         }
 
         #endregion

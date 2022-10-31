@@ -23,11 +23,18 @@ namespace SimplyGreatGames.PokerHoops
             set => currentRoundOfGames = value;
         }
 
+        [SerializeField] private List<Game> currentGamesWaitingToDraw;
+        public List<Game> CurrentGamesWaitingToDraw
+        {
+            get => currentGamesWaitingToDraw;
+            private set => currentGamesWaitingToDraw = value;
+        }
+
         [SerializeField] private List<Game> currentRoundOfGamesComplete;
         public List<Game> CurrentRoundOfGamesComplete
         {
             get => currentRoundOfGamesComplete;
-            set => currentRoundOfGamesComplete = value;
+            private set => currentRoundOfGamesComplete = value;
         }
 
         [Header("Debug Settings")]
@@ -71,7 +78,7 @@ namespace SimplyGreatGames.PokerHoops
 
                     for (int i = 0; i < SeasonManager.Instance.CurrentSeason.PlayerCoaches.Count; i++)
                     {
-                        GameObject loadedGameObj = Instantiate(gamePrefab, this.transform);
+                        GameObject loadedGameObj = Instantiate(gamePrefab, gameRoundSpawnPoint);
                         Game loadedGame = loadedGameObj.GetComponent<Game>();
 
                         loadedGame.RoundSettings = new DefaultRoundSettings();
@@ -86,7 +93,7 @@ namespace SimplyGreatGames.PokerHoops
 
                     for (int i = 0; i < numberOfGames; i++)
                     {
-                        GameObject loadedGameObj = Instantiate(gamePrefab, this.transform);
+                        GameObject loadedGameObj = Instantiate(gamePrefab, gameRoundSpawnPoint);
                         Game loadedGame = loadedGameObj.GetComponent<Game>();
 
                         loadedGame.RoundSettings = new DefaultRoundSettings();
@@ -111,7 +118,7 @@ namespace SimplyGreatGames.PokerHoops
         {
             CurrentRoundOfGames.Clear();
 
-            foreach (Transform transform in gameRoundSpawnPoint.transform)
+            foreach (Transform transform in gameRoundSpawnPoint)
                 Destroy(transform.gameObject);
         }
 
@@ -155,20 +162,44 @@ namespace SimplyGreatGames.PokerHoops
 
         }
 
-        private void MoveRound()
+        #endregion
+
+        #region Mark Games
+
+        public void MarkGameWaitingToDraw(Game gameWaitingToDraw)
         {
-            Debug.Log("Round of games are ready to move to next phase");
+            if (!CurrentGamesWaitingToDraw.Contains(gameWaitingToDraw))
+                CurrentGamesWaitingToDraw.Add(gameWaitingToDraw);
+
+            if (CurrentGamesWaitingToDraw.Count == CurrentRoundOfGames.Count)
+            {
+                foreach (Game game in CurrentRoundOfGames)
+                    game.StateMachine.SetGameState(new DrawState(game.StateMachine));
+            }
+
+            else Debug.Log("Round completed! Waiting for other games to complete");
         }
 
-        public void MarkGameComplete(Game gameCompleted)
+        public void MarkGameCompleted(Game gameCompleted)
         {
             if (!CurrentRoundOfGamesComplete.Contains(gameCompleted))
                 CurrentRoundOfGamesComplete.Add(gameCompleted);
 
             if (CurrentRoundOfGamesComplete.Count == CurrentRoundOfGames.Count)
-                MoveRound();
+                StopRound();
 
             else Debug.Log("Round completed! Waiting for other games to complete");
+        }
+
+
+        #endregion
+
+        #region Debug Methods
+
+        public void DebugSpoofGamesReadyToDraw()
+        {
+            foreach (Game game in CurrentRoundOfGames)
+                MarkGameWaitingToDraw(game);
         }
 
         #endregion

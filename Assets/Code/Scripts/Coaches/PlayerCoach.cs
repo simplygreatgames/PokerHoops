@@ -52,7 +52,7 @@ namespace SimplyGreatGames.PokerHoops
 
         #endregion
 
-            #region Unity Methods & Initialization
+       #region Unity Methods & Initialization
 
         public void Awake()
         {

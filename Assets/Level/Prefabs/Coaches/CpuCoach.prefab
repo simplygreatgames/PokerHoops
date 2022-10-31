@@ -45,7 +45,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58df2e4644d6387448c61d728447f69c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  coachID: 0
+  coachName: Coach
+  currentGame: {fileID: 0}
   hand: {fileID: 7417382096543535138}
+  cpuType: 0
 --- !u!1001 &7927551354933199962
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -60,34 +64,6 @@ PrefabInstance:
     - target: {fileID: 3666923853721634202, guid: 0d4b1083c72373e48a65c8a11cefa37d, type: 3}
       propertyPath: m_RootOrder
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3666923853721634202, guid: 0d4b1083c72373e48a65c8a11cefa37d, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3666923853721634202, guid: 0d4b1083c72373e48a65c8a11cefa37d, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3666923853721634202, guid: 0d4b1083c72373e48a65c8a11cefa37d, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3666923853721634202, guid: 0d4b1083c72373e48a65c8a11cefa37d, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3666923853721634202, guid: 0d4b1083c72373e48a65c8a11cefa37d, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3666923853721634202, guid: 0d4b1083c72373e48a65c8a11cefa37d, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3666923853721634202, guid: 0d4b1083c72373e48a65c8a11cefa37d, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 3666923853721634202, guid: 0d4b1083c72373e48a65c8a11cefa37d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

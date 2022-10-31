@@ -161,6 +161,19 @@ namespace SimplyGreatGames.PokerHoops
             return isDuplicateInHand;
         }
 
+        public void DrawToFill()
+        {
+            int _emptyHandSlots = 0;
+
+            foreach (HandSlot handSlot in HandSlots)
+            {
+                if (!handSlot.IsFilled)
+                    _emptyHandSlots++;
+            }
+
+            DealerManager.Instance.Deck.DrawFromDeck(_emptyHandSlots, Owner);
+        }
+
         #endregion
 
         #region Debug Methods

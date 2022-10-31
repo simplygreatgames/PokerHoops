@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 namespace SimplyGreatGames.PokerHoops
@@ -19,6 +20,7 @@ namespace SimplyGreatGames.PokerHoops
         public override void OnStateExit()
         {
         }
+
     }
 
     #region Unranked Game States
@@ -83,7 +85,7 @@ namespace SimplyGreatGames.PokerHoops
                     PlayerCoach playerCoach = (PlayerCoach)coach;
 
                     if (playerCoach.IsLocalPlayer) 
-                        playerCoach.StateMachine.SetPlayerState(new DiscardActiveState(playerCoach.StateMachine));
+                        playerCoach.StateMachine.SetPlayerState(new InGameActiveDiscardState(playerCoach.StateMachine));
                 }
             }
         }
@@ -97,9 +99,55 @@ namespace SimplyGreatGames.PokerHoops
         {
             base.OnStateEnter();
 
+            TransferPlayerDiscardToCPU();
+            GoToNextState();
         }
 
+        private void TransferPlayerDiscardToCPU()
+        {
+            foreach (Coach coach in StateMachine.Game.CoachesInGame)
+            {
+                if (coach is PlayerCoach)
+                {
+                    PlayerCoach playerCoach = (PlayerCoach)coach;
+                    playerCoach.Hand.DiscardMarkedCards();
+                }
+            }
+        }
+        private void GoToNextState()
+        {
+            StateMachine.SetGameState(new WaitForDrawState(StateMachine));
+        }
     }
+
+    public class WaitForDrawState : GameState
+    {
+        public WaitForDrawState(GameStateMachine stateMachine) : base(stateMachine) { }
+
+        public override void OnStateEnter()
+        {
+            base.OnStateEnter();
+            SetPlayerCoachesToInactiveGameState();
+            AlertRoundManagerReadyToDraw();
+        }
+
+        private void SetPlayerCoachesToInactiveGameState()
+        {
+            foreach (Coach coach in StateMachine.Game.CoachesInGame)
+            {
+                if (coach is PlayerCoach playerCoach)
+                {
+                    playerCoach.StateMachine.SetPlayerState(new InGameInactiveState(playerCoach.StateMachine));
+                }
+            }
+        }
+
+        private void AlertRoundManagerReadyToDraw()
+        {
+            RoundManager.Instance.MarkGameWaitingToDraw(StateMachine.Game);
+        }
+    }
+
     public class DrawState : GameState
     {
         public DrawState(GameStateMachine stateMachine) : base(stateMachine) { }
@@ -107,8 +155,28 @@ namespace SimplyGreatGames.PokerHoops
         public override void OnStateEnter()
         {
             base.OnStateEnter();
+            DrawCardsForBothPlayers();
+            StateMachine.StartCoroutine(DelayForAnimationEnd());
+        }
+
+        private void DrawCardsForBothPlayers()
+        {
+            foreach (Coach coach in StateMachine.Game.CoachesInGame)
+                coach.Hand.DrawToFill();
+        }
+
+        public IEnumerator DelayForAnimationEnd()
+        {
+            yield return new WaitForSeconds(2);
+            GoToNextState();
+        }
+
+        private void GoToNextState()
+        {
+            StateMachine.SetGameState(new ScoreState(StateMachine));
         }
     }
+
     public class ScoreState : GameState
     {
         public ScoreState(GameStateMachine stateMachine) : base(stateMachine) { }
@@ -116,8 +184,15 @@ namespace SimplyGreatGames.PokerHoops
         public override void OnStateEnter()
         {
             base.OnStateEnter();
+            ScoreHands();
+        }
+
+        private void ScoreHands()
+        {
+
         }
     }
+
     public class OvertimeState : GameState
     {
         public OvertimeState(GameStateMachine stateMachine) : base(stateMachine) { }

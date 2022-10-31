@@ -77,9 +77,9 @@ namespace SimplyGreatGames.PokerHoops
         }
     }
 
-    public class DiscardActiveState : PlayerState, Interfaces.IHandleCards
+    public class InGameActiveDiscardState : PlayerState, Interfaces.IHandleCards
     {
-        public DiscardActiveState(PlayerStateMachine stateMachine) : base(stateMachine) { }
+        public InGameActiveDiscardState(PlayerStateMachine stateMachine) : base(stateMachine) { }
 
         public override void OnStateEnter()
         {
@@ -113,6 +113,8 @@ namespace SimplyGreatGames.PokerHoops
 
         public void OnCardClicked(Card cardClicked, Enums.MouseInputType mouseInputType)
         {
+            Debug.Log("Card Clicked: " + cardClicked.name);
+
             switch (mouseInputType)
             {
                 case Enums.MouseInputType.LeftClicked:

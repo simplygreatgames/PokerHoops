@@ -104,8 +104,8 @@ namespace SimplyGreatGames.PokerHoops
             game.CoachesInGame.Add(player);
             player.transform.SetParent(game.transform);
 
-            GameObject cpuCoachObj = Instantiate(CpuPrefab);
-            cpuCoachObj.transform.SetParent(game.transform);
+            GameObject cpuCoachObj = Instantiate(CpuPrefab, game.transform);
+            cpuCoachObj.transform.localPosition = Vector3.zero;
 
             CPUCoach cpuCoach = cpuCoachObj.GetComponent<CPUCoach>();
             cpuCoach.CpuType = Enums.CpuType.Unranked;
@@ -119,8 +119,8 @@ namespace SimplyGreatGames.PokerHoops
             game.CoachesInGame.Add(player);
             player.transform.SetParent(game.transform);
 
-            GameObject cpuCoachObj = Instantiate(CpuPrefab);
-            cpuCoachObj.transform.SetParent(game.transform);
+            GameObject cpuCoachObj = Instantiate(CpuPrefab, game.transform);
+            cpuCoachObj.transform.localPosition = Vector3.zero;
 
             CPUCoach cpuCoach = cpuCoachObj.GetComponent<CPUCoach>();
             cpuCoach.CpuType = Enums.CpuType.Ranked;

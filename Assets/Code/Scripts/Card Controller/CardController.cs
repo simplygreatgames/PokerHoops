@@ -21,9 +21,8 @@ namespace SimplyGreatGames.PokerHoops
         {
             PlayerState currentPlayerState = Owner.StateMachine.CurrentState;
 
-            if (currentPlayerState is Interfaces.IHandleCards)
+            if (currentPlayerState is Interfaces.IHandleCards cardHandlerState)
             {
-                Interfaces.IHandleCards cardHandlerState = (Interfaces.IHandleCards) currentPlayerState;
                 cardHandlerState.OnCardClicked(cardClicked, mouseInputType);
             }
         }
