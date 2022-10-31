@@ -40,5 +40,18 @@ namespace SimplyGreatGames.PokerHoops
             LeftClicked,
             RightClicked
         }
+
+        public enum PokerScoreType
+        {
+            HighCard,
+            PairOne,
+            PairTwo,
+            Threes,
+            Straight,
+            Flush,
+            FullHouse,
+            StraightFlush,
+            Fours,
+        }
     }
 }

@@ -184,12 +184,13 @@ namespace SimplyGreatGames.PokerHoops
         public override void OnStateEnter()
         {
             base.OnStateEnter();
-            ScoreHands();
+            SendHandsToBeScored();
         }
 
-        private void ScoreHands()
+        private void SendHandsToBeScored()
         {
-
+            Debug.Log("Sending Hands to be scored");
+            ScoreManager.Instance.ScoreGame(StateMachine.Game);
         }
     }
 

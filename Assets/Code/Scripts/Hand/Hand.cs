@@ -8,9 +8,25 @@ namespace SimplyGreatGames.PokerHoops
         public Coach Owner { get; private set; }
         public HandSlot[] HandSlots { get; private set; }
 
-        [Header("Cards")]
-        [SerializeField] private int handScore = -1;
-        public int HandScore { get => handScore; private set => handScore = value; }
+        private PokerScore pokerScore;
+        public PokerScore PokerScore 
+        { 
+            get => pokerScore;
+            set
+            {
+                pokerScore = value;
+
+                if (PokerScore != null)
+                {
+                    CurrentScoreType = PokerScore.PokerScoreType;
+                    CurrentScore = PokerScore.ScoreValue;
+                }
+            }
+        }
+
+        [Header("Run Time Data")]
+        [SerializeField] private Enums.PokerScoreType CurrentScoreType;
+        [SerializeField] private int CurrentScore;
 
         [Header("Debug Settings")]
         public List<Card> DebugCards = new List<Card>();
