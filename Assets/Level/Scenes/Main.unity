@@ -807,6 +807,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &820172005 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6768853991145989336, guid: 0d422421406727d42b2077c20b0f494e, type: 3}
+  m_PrefabInstance: {fileID: 250621794}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 977687e78175936488edcb6b2ba5c895, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &832655268
 GameObject:
   m_ObjectHideFlags: 0
@@ -841,6 +852,7 @@ Transform:
   - {fileID: 1508450170}
   - {fileID: 1403979658}
   - {fileID: 1658956200}
+  - {fileID: 1299866452}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1018,6 +1030,63 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1183904831
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 832655269}
+    m_Modifications:
+    - target: {fileID: 24039648716754466, guid: 517109187e36a394f858b55dbfaf0080, type: 3}
+      propertyPath: m_Name
+      value: ScoreManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 1981455516798202049, guid: 517109187e36a394f858b55dbfaf0080, type: 3}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1981455516798202049, guid: 517109187e36a394f858b55dbfaf0080, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1981455516798202049, guid: 517109187e36a394f858b55dbfaf0080, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1981455516798202049, guid: 517109187e36a394f858b55dbfaf0080, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1981455516798202049, guid: 517109187e36a394f858b55dbfaf0080, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1981455516798202049, guid: 517109187e36a394f858b55dbfaf0080, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1981455516798202049, guid: 517109187e36a394f858b55dbfaf0080, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1981455516798202049, guid: 517109187e36a394f858b55dbfaf0080, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1981455516798202049, guid: 517109187e36a394f858b55dbfaf0080, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1981455516798202049, guid: 517109187e36a394f858b55dbfaf0080, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1981455516798202049, guid: 517109187e36a394f858b55dbfaf0080, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 517109187e36a394f858b55dbfaf0080, type: 3}
 --- !u!1001 &1187931914
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1273,10 +1342,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 949950653}
     m_Modifications:
-    - target: {fileID: 1600535694112091829, guid: 8e9eac10d378fd84da453333c739b295, type: 3}
-      propertyPath: Cooldown
-      value: 0.54
-      objectReference: {fileID: 0}
     - target: {fileID: 2300378683406536958, guid: 8e9eac10d378fd84da453333c739b295, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 2
@@ -1286,12 +1351,24 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2300378683406536958, guid: 8e9eac10d378fd84da453333c739b295, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 820172005}
+    - target: {fileID: 2300378683406536958, guid: 8e9eac10d378fd84da453333c739b295, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2300378683406536958, guid: 8e9eac10d378fd84da453333c739b295, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: DebugSpoofGamesReadyToDraw
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300378683406536958, guid: 8e9eac10d378fd84da453333c739b295, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
-      value: SimplyGreatGames.UI.ButtonController, Assembly-CSharp
+      value: SimplyGreatGames.PokerHoops.RoundManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300378683406536958, guid: 8e9eac10d378fd84da453333c739b295, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 3597483566324462578, guid: 8e9eac10d378fd84da453333c739b295, type: 3}
       propertyPath: m_Name
@@ -1399,6 +1476,11 @@ PrefabInstance:
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5070003372899100630, guid: 8e9eac10d378fd84da453333c739b295, type: 3}
   m_PrefabInstance: {fileID: 1292164471}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1299866452 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1981455516798202049, guid: 517109187e36a394f858b55dbfaf0080, type: 3}
+  m_PrefabInstance: {fileID: 1183904831}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1403979657
 PrefabInstance:

@@ -46,7 +46,7 @@ namespace SimplyGreatGames.PokerHoops
             HighCard,
             PairOne,
             PairTwo,
-            Threes,
+            Trips,
             Straight,
             Flush,
             FullHouse,

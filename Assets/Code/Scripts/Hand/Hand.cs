@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace SimplyGreatGames.PokerHoops
@@ -162,6 +163,63 @@ namespace SimplyGreatGames.PokerHoops
             }
 
             return cardsInHand;
+        }
+
+        public List<int> GetCardValuesFromHandAceHigh()
+        {
+            List<int> cardValuesInHand = new List<int>();
+
+            foreach (HandSlot handSlot in HandSlots)
+            {
+                if (handSlot.CardPendingSlot != null)
+                    cardValuesInHand.Add(handSlot.CardPendingSlot.Value);
+
+                else if (handSlot.IsFilled && handSlot.CardInSlot != null)
+                    cardValuesInHand.Add(handSlot.CardInSlot.Value);
+            }
+
+            for (int i = 0; i < cardValuesInHand.Count; i++)
+            {
+                if (cardValuesInHand[i] == 1)
+                    cardValuesInHand[i] = 14;
+            }
+
+            return cardValuesInHand;
+        }
+
+        public List<int> GetCardValuesFromHandAceLow()
+        {
+            List<int> cardValuesInHand = new List<int>();
+
+            foreach (HandSlot handSlot in HandSlots)
+            {
+                if (handSlot.CardPendingSlot != null)
+                    cardValuesInHand.Add(handSlot.CardPendingSlot.Value);
+
+                else if (handSlot.IsFilled && handSlot.CardInSlot != null)
+                    cardValuesInHand.Add(handSlot.CardInSlot.Value);
+            }
+
+            return cardValuesInHand;
+        }
+
+        public Card GetHighestValueCardAceHigh()
+        {
+            List<Card> cardsInHand = GetCardsFromHand().OrderByDescending(x => x.Value).ToList();
+            Card highestCard = null;
+
+            if (cardsInHand[cardsInHand.Count - 1].Value == 1) highestCard = cardsInHand[cardsInHand.Count - 1];
+            else highestCard = cardsInHand[0];
+
+            return highestCard;
+        }
+
+        public Card GetHighestValueCardAceLow()
+        {
+            List<Card> cardsInHand = GetCardsFromHand().OrderByDescending(x => x.Value).ToList();
+            Card highestCard = cardsInHand[0];
+
+            return highestCard;
         }
 
         public bool IsCardAlreadyInHand(Card card)

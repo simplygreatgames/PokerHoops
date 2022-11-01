@@ -1,5 +1,4 @@
 using System.Linq;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,11 +8,17 @@ namespace SimplyGreatGames.PokerHoops
     {
         public static ScoreManager Instance;
 
+        #region Unity Methods
+
         public void Awake()
         {
             if (Instance == null) Instance = this;
             else Destroy(this);
         }
+
+        #endregion
+
+        #region Score Manager Methods
 
         public void ScoreGame(Game gameBeingScored)
         {
@@ -23,8 +28,6 @@ namespace SimplyGreatGames.PokerHoops
 
         private void ScorePlayerHand(Hand hand)
         {
-            Debug.Log("Scoring the players hand");
-
             if (ScoreStraightFlush(hand)) return;
             else if (ScoreFours(hand)) return;
             else if (ScoreFullHouse(hand)) return;
@@ -36,27 +39,74 @@ namespace SimplyGreatGames.PokerHoops
             else ScoreHighCard(hand);
         }
 
-        #region Poker Score Logic
+        #endregion
+
+        #region Poker Scoring Logic
 
         private bool ScoreStraightFlush(Hand hand)
         {
             bool isStraightFlush = false;
 
+            if (ScoreStraight(hand) && ScoreFlush(hand))
+            {
+                Card highestValueCard = hand.GetHighestValueCardAceHigh();
+
+                int scoreValue = highestValueCard.Value;
+
+                if (scoreValue == 1)
+                    scoreValue = 14;
+
+                PokerScore newScore = new PokerScore(Enums.PokerScoreType.StraightFlush, scoreValue, hand.GetCardsFromHand());
+                hand.PokerScore = newScore;
+                isStraightFlush = true;
+            }
 
             return isStraightFlush;
         }
 
         private bool ScoreFours(Hand hand)
         {
-            bool isStraightFours = false;
+            List<Card> cardsInHand = hand.GetCardsFromHand();
 
-            return isStraightFours;
+            var sameValueCards = cardsInHand.GroupBy(card => card.Value);
+            var trips = sameValueCards.Where(group => group.Count() == 4);
+
+            bool isFours = false;
+
+            if (trips.Count() == 1)
+            {
+                List<Card> cards = trips.SelectMany(cardsInPair => cardsInPair).ToList();
+
+                int scoreValue = cards[0].Value;
+
+                if (scoreValue == 1)
+                    scoreValue = 14;
+
+                PokerScore newScore = new PokerScore(Enums.PokerScoreType.Fours, scoreValue, cards);
+                hand.PokerScore = newScore;
+                isFours = true;
+            }
+
+            return isFours;
         }
 
         private bool ScoreFullHouse(Hand hand)
         {
             bool isFullHouse = false;
 
+            if (ScoreTrips(hand) && ScoreOnePair(hand))
+            {
+                Card highestValueCard = hand.GetHighestValueCardAceHigh();
+
+                int scoreValue = highestValueCard.Value;
+
+                if (scoreValue == 1) 
+                    scoreValue = 14;
+
+                PokerScore newScore = new PokerScore(Enums.PokerScoreType.FullHouse, scoreValue, hand.GetCardsFromHand());
+                hand.PokerScore = newScore;
+                isFullHouse = true;
+            }
 
             return isFullHouse;
         }
@@ -65,55 +115,152 @@ namespace SimplyGreatGames.PokerHoops
         {
             bool isFlush = false;
 
+            List<Card> cardsInHand = hand.GetCardsFromHand();
+
+            var sameSuitGroups = cardsInHand.GroupBy(x => x.Suit);
+            var flushGroup =  sameSuitGroups.Where(x => x.Count() >= 5); 
+            
+            if (flushGroup.Count() == 1)
+            {
+                Card highestCard = hand.GetHighestValueCardAceHigh();
+
+                int scoreValue = highestCard.Value;
+
+                if (scoreValue == 1)
+                    scoreValue = 14;
+
+                PokerScore newScore = new PokerScore(Enums.PokerScoreType.Flush, scoreValue, hand.GetCardsFromHand());
+                hand.PokerScore = newScore;
+                isFlush = true;
+            }
 
             return isFlush;
         }
 
         private bool ScoreStraight(Hand hand)
         {
-            bool isStraight = false;
+            List<int> cardInHandAceLow = hand.GetCardValuesFromHandAceLow();
+            List<int> cardsinHandAceHigh = hand.GetCardValuesFromHandAceHigh();
 
+            bool cardAceHighiIsStraight = (cardsinHandAceHigh.Distinct().Count() == 5) && (cardsinHandAceHigh.Max() - cardsinHandAceHigh.Min() == 4);
+            bool cardAceLowIsStraight = (cardInHandAceLow.Distinct().Count() == 5) && (cardInHandAceLow.Max() - cardInHandAceLow.Min() == 4);
 
-            return isStraight;
+            if (cardAceHighiIsStraight)
+            {
+                Card highestCard = hand.GetHighestValueCardAceHigh();
+
+                int scoreValue = highestCard.Value;
+
+                if (scoreValue == 1)
+                    scoreValue = 14;
+
+                PokerScore newScore = new PokerScore(Enums.PokerScoreType.Straight, scoreValue, hand.GetCardsFromHand());
+                hand.PokerScore = newScore;
+            }
+
+            else if (cardAceLowIsStraight)
+            {
+                Card highestCard = hand.GetHighestValueCardAceLow();
+
+                int scoreValue = highestCard.Value;
+
+                PokerScore newScore = new PokerScore(Enums.PokerScoreType.Straight, scoreValue, hand.GetCardsFromHand());
+                hand.PokerScore = newScore;
+            }
+
+            return cardAceHighiIsStraight;
         }
 
         private bool ScoreTrips(Hand hand)
         {
+            List<Card> cardsInHand = hand.GetCardsFromHand();
+
+            var sameValueCards = cardsInHand.GroupBy(card => card.Value);
+            var trips = sameValueCards.Where(group => group.Count() == 3);
+
             bool isTrips = false;
 
+            if (trips.Count() == 1)
+            {
+                var cardPairs = trips.SelectMany(cardsInPair => cardsInPair);
+                List<Card> cards = cardPairs.ToList();
+
+                int scoreValue = cards[0].Value;
+
+                if (scoreValue == 1)
+                    scoreValue = 14;
+
+                PokerScore newScore = new PokerScore(Enums.PokerScoreType.Trips, scoreValue, cards);
+                hand.PokerScore = newScore;
+                isTrips = true;
+            }
 
             return isTrips;
         }
 
         private bool ScoreTwoPair(Hand hand)
         {
+            List<Card> cardsInHand = hand.GetCardsFromHand();
+
+            var sameValueCards = cardsInHand.GroupBy(card => card.Value);
+            var pairs = sameValueCards.Where(group => group.Count() == 2);
+
             bool isTwoPair = false;
 
+            if (pairs.Count() == 2)
+            {
+                var cardPairs = pairs.SelectMany(cardsInPair => cardsInPair);
+                List<Card> cards = cardPairs.OrderByDescending(card => card.Value).ToList();
+
+                int scoreValue = cards[0].Value;
+
+                if (cards[cards.Count - 1].Value == 1)
+                    scoreValue = 14;
+
+                PokerScore newScore = new PokerScore(Enums.PokerScoreType.PairTwo, scoreValue, cards);
+                hand.PokerScore = newScore;
+                isTwoPair = true;
+            }
 
             return isTwoPair;
         }
 
         private bool ScoreOnePair(Hand hand)
         {
+            List<Card> cardsInHand = hand.GetCardsFromHand();
+
+            var sameValueCards = cardsInHand.GroupBy(card => card.Value);
+            var pairs = sameValueCards.Where(group => group.Count() == 2);
+
             bool isOnePair = false;
 
+            if (pairs.Count() == 1)
+            {
+                List<Card> cards = pairs.FirstOrDefault().ToList();
+
+                int scoreValue = cards[0].Value;
+
+                if (scoreValue == 1) 
+                    scoreValue = 14;
+
+                PokerScore newScore = new PokerScore(Enums.PokerScoreType.PairOne, scoreValue, cards);
+                hand.PokerScore = newScore;
+                isOnePair = true;
+            }
 
             return isOnePair;
         }
 
         private void ScoreHighCard(Hand hand)
         {
-            List<Card> cardsInHand = hand.GetCardsFromHand();
+            Card card = hand.GetHighestValueCardAceHigh();
 
-            int highestValue = 0;
+            int scoreValue = card.Value;
 
-            foreach (Card card in cardsInHand)
-            {
-                if (card.Value > highestValue)
-                    highestValue = card.Value;
-            }
+            if (scoreValue == 1)
+                scoreValue = 14;
 
-            PokerScore newScore = new PokerScore(Enums.PokerScoreType.HighCard, highestValue);
+            PokerScore newScore = new PokerScore(Enums.PokerScoreType.HighCard, scoreValue, new List<Card> { card });
             hand.PokerScore = newScore;
         }
 
