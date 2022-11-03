@@ -4,7 +4,7 @@ namespace SimplyGreatGames.PokerHoops
 {
     public class Coach : MonoBehaviour
     {
-        [Header("Coach Information")]
+        [Header("Runtime Information")]
 
         [SerializeField] private int coachID = 0;
         public int CoachID { get => coachID; set => coachID = value; }
@@ -30,6 +30,9 @@ namespace SimplyGreatGames.PokerHoops
                 currentGame = value;
             } 
         }
+
+        [SerializeField] private bool isHomePlayer;
+        public bool IsHomePlayer { get => isHomePlayer; set => isHomePlayer = value; }
 
         [SerializeField] private Hand hand;
         public Hand Hand { get => hand; set => hand = value; }

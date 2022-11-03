@@ -13,17 +13,28 @@ namespace SimplyGreatGames.PokerHoops
             set => roundSettings = value;
         }
 
-        [Header("Game Info")]
+        [Header("State Machine")]
+        [SerializeField] private GameStateMachine stateMachine;
+        public GameStateMachine StateMachine
+        {
+            get => stateMachine;
+            private set => stateMachine = value;
+        }
+
+        [Header("Runtime Info")]
         [SerializeField] private List<Coach> coachesInGame;
         public List<Coach> CoachesInGame 
         { 
             get => coachesInGame;
-            set => coachesInGame = value;
+            private set => coachesInGame = value;
         }
 
-        [Header("State Machine")]
-        [SerializeField] private GameStateMachine stateMachine;
-        public GameStateMachine StateMachine { get => stateMachine; private set => stateMachine = value; }
+        [SerializeField] private ScoringTableScriptable scoringTable;
+        public ScoringTableScriptable ScoringTable
+        {
+            get => scoringTable;
+            private set => scoringTable = value;
+        }
 
         #region Unity Methods & Initialization
 
@@ -38,13 +49,41 @@ namespace SimplyGreatGames.PokerHoops
                 StateMachine = GetComponent<GameStateMachine>();
         }
 
-        public void RegisterCoachesInGame()
+        public void InitializeGame(List<Coach> coachesInGame)
         {
-            foreach (Coach coachInGame in CoachesInGame)
-                coachInGame.CurrentGame = this;
+            CoachesInGame = coachesInGame;
+            RegisterCoachesToGame();
+            SetScoringTable();
+        }
+
+        private void RegisterCoachesToGame()
+        {
+            for (int i = 0; i < CoachesInGame.Count; i++)
+            {
+                if (i == 0)
+                {
+                    CoachesInGame[i].CurrentGame = this;
+                    CoachesInGame[i].IsHomePlayer = true;
+                }
+
+                if (i == 1)
+                {
+                    CoachesInGame[i].CurrentGame = this;
+                    CoachesInGame[i].IsHomePlayer = false;
+                }
+
+                else Debug.LogWarning("Too Many Coaches In Game");
+            }
+        }
+
+        public void SetScoringTable()
+        {
+            ScoringTable = ScoreManager.Instance.DefaultScoringTable;
+
+            if (!ScoringTable)
+                Debug.LogError("Error! No Scoring Table Found");
         }
 
         #endregion
-
     }
 }

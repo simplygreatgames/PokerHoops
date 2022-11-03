@@ -101,7 +101,6 @@ namespace SimplyGreatGames.PokerHoops
 
         private void CreateUnrankedGroup(Game game, PlayerCoach player)
         {
-            game.CoachesInGame.Add(player);
             player.transform.SetParent(game.transform);
 
             GameObject cpuCoachObj = Instantiate(CpuPrefab, game.transform);
@@ -110,13 +109,12 @@ namespace SimplyGreatGames.PokerHoops
             CPUCoach cpuCoach = cpuCoachObj.GetComponent<CPUCoach>();
             cpuCoach.CpuType = Enums.CpuType.Unranked;
 
-            game.CoachesInGame.Add(cpuCoach);
-            game.RegisterCoachesInGame();
+            List<Coach> coachesInGame = new List<Coach>() { player, cpuCoach };
+            game.InitializeGame(coachesInGame);
         }
 
         private void CreateRankedGroup(Game game, PlayerCoach player)
         {
-            game.CoachesInGame.Add(player);
             player.transform.SetParent(game.transform);
 
             GameObject cpuCoachObj = Instantiate(CpuPrefab, game.transform);
@@ -125,8 +123,8 @@ namespace SimplyGreatGames.PokerHoops
             CPUCoach cpuCoach = cpuCoachObj.GetComponent<CPUCoach>();
             cpuCoach.CpuType = Enums.CpuType.Ranked;
 
-            game.CoachesInGame.Add(cpuCoach);
-            game.RegisterCoachesInGame();
+            List<Coach> coachesInGame = new List<Coach>() { player, cpuCoach };
+            game.InitializeGame(coachesInGame);
         }
 
         private void CreateHeadtoHeadGroup(Game game)
@@ -155,10 +153,8 @@ namespace SimplyGreatGames.PokerHoops
 
                 else // Has not played Player Before
                 {
-                    Debug.Log("Adding Player to Game");
-                    game.CoachesInGame.Add(playerMatching);
-                    game.CoachesInGame.Add(potentialOpponent);
-                    game.RegisterCoachesInGame();
+                    List<Coach> coachesInGame = new List<Coach>() { playerMatching, potentialOpponent };
+                    game.InitializeGame(coachesInGame);
 
                     playerMatching.transform.SetParent(game.transform);
                     potentialOpponent.transform.SetParent(game.transform);

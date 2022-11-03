@@ -44,3 +44,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56a6214d7332b784dadb9ad255ab3a3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  defaultScoringTable: {fileID: 11400000, guid: 65812bde51a315246bdf378a55d50fbb, type: 2}

@@ -8,6 +8,9 @@ namespace SimplyGreatGames.PokerHoops
     {
         public static ScoreManager Instance;
 
+        [SerializeField] private ScoringTableScriptable defaultScoringTable;
+        public ScoringTableScriptable DefaultScoringTable { get => defaultScoringTable; set => defaultScoringTable = value; }
+
         #region Unity Methods
 
         public void Awake()
@@ -24,6 +27,8 @@ namespace SimplyGreatGames.PokerHoops
         {
             foreach (Coach coach in gameBeingScored.CoachesInGame)
                 ScorePlayerHand(coach.Hand);
+
+            DeclareWinner(gameBeingScored);
         }
 
         private void ScorePlayerHand(Hand hand)
@@ -37,6 +42,11 @@ namespace SimplyGreatGames.PokerHoops
             else if (ScoreTwoPair(hand)) return;
             else if (ScoreOnePair(hand)) return;
             else ScoreHighCard(hand);
+        }
+
+        private void DeclareWinner(Game gameBeingScored)
+        {
+
         }
 
         #endregion

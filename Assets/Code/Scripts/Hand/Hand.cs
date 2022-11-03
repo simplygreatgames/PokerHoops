@@ -9,7 +9,10 @@ namespace SimplyGreatGames.PokerHoops
         public Coach Owner { get; private set; }
         public HandSlot[] HandSlots { get; private set; }
 
-        private PokerScore pokerScore;
+        [SerializeField] private int basketballScore;
+        public int BasketballScore { get => basketballScore; private set => basketballScore = value; }
+
+        [SerializeField] private PokerScore pokerScore;
         public PokerScore PokerScore 
         { 
             get => pokerScore;
@@ -21,6 +24,7 @@ namespace SimplyGreatGames.PokerHoops
                 {
                     CurrentScoreType = PokerScore.PokerScoreType;
                     CurrentScore = PokerScore.ScoreValue;
+                    BasketballScore = Owner.CurrentGame.ScoringTable.TranslatePokerScore(Owner.IsHomePlayer, PokerScore);
                 }
             }
         }

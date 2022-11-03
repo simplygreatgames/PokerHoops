@@ -189,7 +189,6 @@ namespace SimplyGreatGames.PokerHoops
 
         private void SendHandsToBeScored()
         {
-            Debug.Log("Sending Hands to be scored");
             ScoreManager.Instance.ScoreGame(StateMachine.Game);
         }
     }
