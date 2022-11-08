@@ -46,6 +46,9 @@ namespace SimplyGreatGames.PokerHoops
                 {
                     PlayerCoach playerCoach = (PlayerCoach) coach;
                     playerCoach.StateMachine.SetPlayerState(new InGameInactiveState(playerCoach.StateMachine));
+
+                    if (playerCoach.IsLocalPlayer)
+                        GameUIPanel.Instance.ScoreBoard.SetScoreBoard(null);
                 }
             }
         }
@@ -184,12 +187,20 @@ namespace SimplyGreatGames.PokerHoops
         public override void OnStateEnter()
         {
             base.OnStateEnter();
+
             SendHandsToBeScored();
+            GoToNextState();
         }
 
         private void SendHandsToBeScored()
         {
             ScoreManager.Instance.ScoreGame(StateMachine.Game);
+        }
+
+        private void GoToNextState()
+        {
+            if (StateMachine.Game.IsTiedGame) StateMachine.SetGameState(new OvertimeState(StateMachine));
+            else StateMachine.SetGameState(new ClosedState(StateMachine));
         }
     }
 
@@ -200,8 +211,35 @@ namespace SimplyGreatGames.PokerHoops
         public override void OnStateEnter()
         {
             base.OnStateEnter();
+            Debug.Log("Tied Game! Going to overtime! Flipping for winner");
+            RandomlySelectWinner();
+        }
+
+        private void RandomlySelectWinner()
+        {
+            int winner = Random.Range(1, 3);
+
+            Coach winningCoach = StateMachine.Game.CoachesInGame[winner];
+
+            StateMachine.Game.WinningScore = winningCoach.Hand.PokerScore;
+
+            if (StateMachine.Game.CoachesInGame[0] is PlayerCoach playerCoach)
+            {
+                RecordData recordData = playerCoach.TeamRecord.GetLatestRecord();
+
+                if (recordData == null)
+                {
+                    Debug.Log("No Record Available");
+                    return;
+                }
+
+                recordData.PlayerWon = winningCoach.CoachID == playerCoach.CoachID;
+            }
+
+            StateMachine.SetGameState(new ClosedState(StateMachine));
         }
     }
+
     public class ClosedState : GameState
     {
         public ClosedState(GameStateMachine stateMachine) : base(stateMachine) { }
@@ -209,6 +247,28 @@ namespace SimplyGreatGames.PokerHoops
         public override void OnStateEnter()
         {
             base.OnStateEnter();
+            Debug.Log("Game Over! " + StateMachine.Game.WinningScore.ScoreOwner.name + " won with a " + StateMachine.Game.WinningScore.PokerScoreType);
+
+            StateMachine.StartCoroutine(CloseGame());
+        }
+
+        private IEnumerator CloseGame()
+        {
+            yield return new WaitForSeconds(5);
+
+            RegisterClosedGame();
+            CleanupGame();
+        }
+
+        private void CleanupGame()
+        {
+            foreach (Coach coach in StateMachine.Game.CoachesInGame)
+                coach.Hand.CleanHand();
+        }
+
+        private void RegisterClosedGame()
+        {
+            RoundManager.Instance.MarkGameCompleted(StateMachine.Game);
         }
     }
 

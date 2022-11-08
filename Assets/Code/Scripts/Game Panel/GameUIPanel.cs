@@ -11,6 +11,9 @@ namespace SimplyGreatGames.PokerHoops
         [SerializeField] private Button[] buttons;
         public Button[] Buttons { get => buttons; private set => buttons = value; }
 
+        [SerializeField] private Scoreboard scoreBoard;
+        public Scoreboard ScoreBoard { get => scoreBoard; set => scoreBoard = value; }
+
         [Header("Runtime Data")]
         [SerializeField] private PlayerCoach owner = null;
         public PlayerCoach Owner { get => owner; private set => owner = value; }

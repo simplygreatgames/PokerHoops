@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
@@ -12,9 +10,11 @@ namespace SimplyGreatGames.PokerHoops
         [SerializeField] private TextMeshProUGUI scoreHomeTextMesh;
         [SerializeField] private TextMeshProUGUI scoreAwayTextMesh;
         [SerializeField] private TextMeshProUGUI periodTextMesh;
+        [SerializeField] private TextMeshProUGUI HomePokerTypeTextMesh;
+        [SerializeField] private TextMeshProUGUI AwayPokerTypeTextMesh;
 
         [Header("Debug Info")]
-        [SerializeField] private string clockText = "0 : 00";
+        [SerializeField] private string clockText = "00 : 00";
         public string ClockText 
         { 
             get => clockText;
@@ -69,6 +69,33 @@ namespace SimplyGreatGames.PokerHoops
             scoreHomeTextMesh.text = ScoreHomeText.ToString();
             scoreAwayTextMesh.text = ScoreAwayText.ToString(); ;
             periodTextMesh.text = PeriodText.ToString();
+        }
+
+        public void SetScoreBoard(RecordData recordData)
+        {
+            if (recordData != null)
+            {
+                ScoreHomeText = recordData.PlayerBasketballScore;
+                ScoreAwayText = recordData.OpponentBasketballScore;
+
+                HomePokerTypeTextMesh.text = recordData.PlayerHandType.ToString();
+                AwayPokerTypeTextMesh.text = recordData.OpponentHandType.ToString();
+
+                ClockText = "00 : 00";
+                PeriodText = 4;
+            }
+
+            else
+            {
+                ScoreHomeText = 0;
+                ScoreAwayText = 0;
+
+                HomePokerTypeTextMesh.text = string.Empty;
+                AwayPokerTypeTextMesh.text = string.Empty;
+
+                ClockText = "00 : 00";
+                PeriodText = 1;
+            }
         }
     }
 }

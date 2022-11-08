@@ -40,7 +40,6 @@ namespace SimplyGreatGames.PokerHoops
             LoadNewSeason(seasonSettings);
             CurrentSeason.StateMachine.SetSeasonState(new StartSeasonState(CurrentSeason.StateMachine));
         }
-
         public void StartSeasonLoaded()
         {
             if (CurrentSeason == null)
@@ -52,6 +51,18 @@ namespace SimplyGreatGames.PokerHoops
             CurrentSeason.StateMachine.SetSeasonState(new StartSeasonState(CurrentSeason.StateMachine));
         }
 
-        #endregion 
+        #endregion
+
+        #region Round Management
+
+        public void MarkRoundComplete()
+        {
+            CurrentSeason.RoundNumber++;
+
+            RunSeasonState runSeasonState = (RunSeasonState) CurrentSeason.StateMachine.CurrentState;
+            runSeasonState.GenerateNextRoundOfGames();
+        }
+
+        #endregion
     }
 }

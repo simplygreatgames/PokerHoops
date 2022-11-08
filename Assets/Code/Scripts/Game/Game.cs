@@ -36,6 +36,20 @@ namespace SimplyGreatGames.PokerHoops
             private set => scoringTable = value;
         }
 
+        [SerializeField] private bool isTiedGame = false;
+        public bool IsTiedGame
+        {
+            get => isTiedGame;
+            set => isTiedGame = value;
+        }
+
+        [SerializeField] private PokerScore winningScore;
+        public PokerScore WinningScore
+        {
+            get => winningScore;
+            set => winningScore = value;
+        }
+
         #region Unity Methods & Initialization
 
         public void Awake()
@@ -71,8 +85,6 @@ namespace SimplyGreatGames.PokerHoops
                     CoachesInGame[i].CurrentGame = this;
                     CoachesInGame[i].IsHomePlayer = false;
                 }
-
-                else Debug.LogWarning("Too Many Coaches In Game");
             }
         }
 

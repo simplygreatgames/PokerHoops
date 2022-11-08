@@ -26,6 +26,13 @@ namespace SimplyGreatGames.PokerHoops
                     CurrentScore = PokerScore.ScoreValue;
                     BasketballScore = Owner.CurrentGame.ScoringTable.TranslatePokerScore(Owner.IsHomePlayer, PokerScore);
                 }
+
+                else
+                {
+                    CurrentScoreType = Enums.PokerScoreType.HighCard;
+                    CurrentScore = 0;
+                    BasketballScore = 0;
+                }
             }
         }
 
@@ -100,6 +107,16 @@ namespace SimplyGreatGames.PokerHoops
             OnHandChange?.Invoke(GetCardsFromHand());
         }
 
+
+        public void DiscardAllCards()
+        {
+            foreach (HandSlot handSlot in HandSlots)
+            {
+                if (handSlot.IsFilled)
+                    DiscardFromHandSlot(handSlot, Enums.DiscardType.ToDealer);
+            }
+        }
+
         public void DiscardMarkedCards()
         {
             foreach (HandSlot handSlot in HandSlots)
@@ -147,6 +164,16 @@ namespace SimplyGreatGames.PokerHoops
             }
 
             OnHandChange?.Invoke(GetCardsFromHand());
+        }
+
+        #endregion
+
+        #region Clean / Reset
+
+        public void CleanHand()
+        {
+            DiscardAllCards();
+            PokerScore = null;
         }
 
         #endregion

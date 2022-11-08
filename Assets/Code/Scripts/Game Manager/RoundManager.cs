@@ -11,6 +11,7 @@ namespace SimplyGreatGames.PokerHoops
         [Header("Dependencies")]
         [SerializeField] private GameObject gamePrefab = null;
         [SerializeField] private Transform gameRoundSpawnPoint = null;
+        [SerializeField] private Transform gameRoundDiscardPoint = null;
 
         [Header("Round Info")]
         [SerializeField] private int currentRound;
@@ -116,10 +117,10 @@ namespace SimplyGreatGames.PokerHoops
 
         private void ClearRoundOfGames()
         {
-            CurrentRoundOfGames.Clear();
-
             foreach (Transform transform in gameRoundSpawnPoint)
-                Destroy(transform.gameObject);
+                transform.SetParent(gameRoundDiscardPoint);
+
+            CurrentRoundOfGames.Clear();
         }
 
         private void AssignActiveGame()
@@ -133,7 +134,10 @@ namespace SimplyGreatGames.PokerHoops
                         PlayerCoach playerCoach = (PlayerCoach)coach;
 
                         if (playerCoach.IsLocalPlayer)
+                        {
                             ActiveGameInterface.Instance.ActiveGame = game;
+                            Debug.Log("Local Player is " + playerCoach.CoachID);
+                        }
                     }
                 }
             }
@@ -151,6 +155,9 @@ namespace SimplyGreatGames.PokerHoops
 
         private void StartRound()
         {
+            CurrentGamesWaitingToDraw.Clear();
+            CurrentRoundOfGamesComplete.Clear();
+
             foreach (Game game in CurrentRoundOfGames)
             {
                 game.StateMachine.SetGameState(new InitializeGameState(game.StateMachine));
@@ -159,7 +166,10 @@ namespace SimplyGreatGames.PokerHoops
 
         private void StopRound()
         {
+            Debug.Log("All Games Complete! Checking For Next Round Of Games...");
 
+            ClearRoundOfGames();
+            SeasonManager.Instance.MarkRoundComplete();
         }
 
         #endregion

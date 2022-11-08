@@ -61,7 +61,18 @@ namespace SimplyGreatGames.PokerHoops
             List<CardScriptable> cardScriptablesDrawn = new List<CardScriptable>();
 
             for (int i = 0; i < numberOfCards; i++)
-                cardScriptablesDrawn.Add(CurrentDeck[i]);
+            {
+                if (i >= CurrentDeck.Count)
+                {
+                    cardScriptablesDrawn.Add(CurrentDeck[i]);
+                }
+
+                else
+                {
+                    BuildDeck();
+                    cardScriptablesDrawn.Add(CurrentDeck[i]);
+                }
+            }
 
             foreach (CardScriptable cardScriptable in cardScriptablesDrawn)
             {

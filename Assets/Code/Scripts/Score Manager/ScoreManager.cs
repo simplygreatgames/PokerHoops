@@ -11,6 +11,7 @@ namespace SimplyGreatGames.PokerHoops
         [SerializeField] private ScoringTableScriptable defaultScoringTable;
         public ScoringTableScriptable DefaultScoringTable { get => defaultScoringTable; set => defaultScoringTable = value; }
 
+
         #region Unity Methods
 
         public void Awake()
@@ -28,7 +29,8 @@ namespace SimplyGreatGames.PokerHoops
             foreach (Coach coach in gameBeingScored.CoachesInGame)
                 ScorePlayerHand(coach.Hand);
 
-            DeclareWinner(gameBeingScored);
+            DeclareWinners(gameBeingScored);
+            RecordData(gameBeingScored);
         }
 
         private void ScorePlayerHand(Hand hand)
@@ -44,9 +46,33 @@ namespace SimplyGreatGames.PokerHoops
             else ScoreHighCard(hand);
         }
 
-        private void DeclareWinner(Game gameBeingScored)
+        private void DeclareWinners(Game gameBeingScored)
         {
+            Coach coachA = gameBeingScored.CoachesInGame[0];
+            Coach coachB = gameBeingScored.CoachesInGame[1];
 
+            if (coachA.Hand.BasketballScore == coachB.Hand.BasketballScore) gameBeingScored.IsTiedGame = true;
+            else if (coachA.Hand.BasketballScore > coachB.Hand.BasketballScore) gameBeingScored.WinningScore = coachA.Hand.PokerScore;
+            else gameBeingScored.WinningScore = coachB.Hand.PokerScore;
+        }
+
+        private void RecordData(Game gameBeingScored)
+        {
+            foreach (Coach coach in gameBeingScored.CoachesInGame)
+            {
+                if (coach is PlayerCoach playerCoach)
+                {
+                    RecordData newRecordData = playerCoach.TeamRecord.RecordGameData(gameBeingScored);
+
+                    if (playerCoach.IsLocalPlayer)
+                        SetScoreBoard(newRecordData);
+                }
+            }
+        }
+
+        private void SetScoreBoard(RecordData recordData) 
+        {
+            GameUIPanel.Instance.ScoreBoard.SetScoreBoard(recordData);
         }
 
         #endregion
@@ -66,7 +92,7 @@ namespace SimplyGreatGames.PokerHoops
                 if (scoreValue == 1)
                     scoreValue = 14;
 
-                PokerScore newScore = new PokerScore(Enums.PokerScoreType.StraightFlush, scoreValue, hand.GetCardsFromHand());
+                PokerScore newScore = new PokerScore(hand, Enums.PokerScoreType.StraightFlush, scoreValue, hand.GetCardsFromHand());
                 hand.PokerScore = newScore;
                 isStraightFlush = true;
             }
@@ -92,7 +118,7 @@ namespace SimplyGreatGames.PokerHoops
                 if (scoreValue == 1)
                     scoreValue = 14;
 
-                PokerScore newScore = new PokerScore(Enums.PokerScoreType.Fours, scoreValue, cards);
+                PokerScore newScore = new PokerScore(hand, Enums.PokerScoreType.Fours, scoreValue, cards);
                 hand.PokerScore = newScore;
                 isFours = true;
             }
@@ -113,7 +139,7 @@ namespace SimplyGreatGames.PokerHoops
                 if (scoreValue == 1) 
                     scoreValue = 14;
 
-                PokerScore newScore = new PokerScore(Enums.PokerScoreType.FullHouse, scoreValue, hand.GetCardsFromHand());
+                PokerScore newScore = new PokerScore(hand, Enums.PokerScoreType.FullHouse, scoreValue, hand.GetCardsFromHand());
                 hand.PokerScore = newScore;
                 isFullHouse = true;
             }
@@ -139,7 +165,7 @@ namespace SimplyGreatGames.PokerHoops
                 if (scoreValue == 1)
                     scoreValue = 14;
 
-                PokerScore newScore = new PokerScore(Enums.PokerScoreType.Flush, scoreValue, hand.GetCardsFromHand());
+                PokerScore newScore = new PokerScore(hand, Enums.PokerScoreType.Flush, scoreValue, hand.GetCardsFromHand());
                 hand.PokerScore = newScore;
                 isFlush = true;
             }
@@ -164,7 +190,7 @@ namespace SimplyGreatGames.PokerHoops
                 if (scoreValue == 1)
                     scoreValue = 14;
 
-                PokerScore newScore = new PokerScore(Enums.PokerScoreType.Straight, scoreValue, hand.GetCardsFromHand());
+                PokerScore newScore = new PokerScore(hand, Enums.PokerScoreType.Straight, scoreValue, hand.GetCardsFromHand());
                 hand.PokerScore = newScore;
             }
 
@@ -174,7 +200,7 @@ namespace SimplyGreatGames.PokerHoops
 
                 int scoreValue = highestCard.Value;
 
-                PokerScore newScore = new PokerScore(Enums.PokerScoreType.Straight, scoreValue, hand.GetCardsFromHand());
+                PokerScore newScore = new PokerScore(hand, Enums.PokerScoreType.Straight, scoreValue, hand.GetCardsFromHand());
                 hand.PokerScore = newScore;
             }
 
@@ -200,7 +226,7 @@ namespace SimplyGreatGames.PokerHoops
                 if (scoreValue == 1)
                     scoreValue = 14;
 
-                PokerScore newScore = new PokerScore(Enums.PokerScoreType.Trips, scoreValue, cards);
+                PokerScore newScore = new PokerScore(hand, Enums.PokerScoreType.Trips, scoreValue, cards);
                 hand.PokerScore = newScore;
                 isTrips = true;
             }
@@ -227,7 +253,7 @@ namespace SimplyGreatGames.PokerHoops
                 if (cards[cards.Count - 1].Value == 1)
                     scoreValue = 14;
 
-                PokerScore newScore = new PokerScore(Enums.PokerScoreType.PairTwo, scoreValue, cards);
+                PokerScore newScore = new PokerScore(hand, Enums.PokerScoreType.PairTwo, scoreValue, cards);
                 hand.PokerScore = newScore;
                 isTwoPair = true;
             }
@@ -253,7 +279,7 @@ namespace SimplyGreatGames.PokerHoops
                 if (scoreValue == 1) 
                     scoreValue = 14;
 
-                PokerScore newScore = new PokerScore(Enums.PokerScoreType.PairOne, scoreValue, cards);
+                PokerScore newScore = new PokerScore(hand, Enums.PokerScoreType.PairOne, scoreValue, cards);
                 hand.PokerScore = newScore;
                 isOnePair = true;
             }
@@ -270,7 +296,7 @@ namespace SimplyGreatGames.PokerHoops
             if (scoreValue == 1)
                 scoreValue = 14;
 
-            PokerScore newScore = new PokerScore(Enums.PokerScoreType.HighCard, scoreValue, new List<Card> { card });
+            PokerScore newScore = new PokerScore(hand, Enums.PokerScoreType.HighCard, scoreValue, new List<Card> { card });
             hand.PokerScore = newScore;
         }
 

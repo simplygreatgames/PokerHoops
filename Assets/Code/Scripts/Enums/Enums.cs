@@ -43,15 +43,15 @@ namespace SimplyGreatGames.PokerHoops
 
         public enum PokerScoreType
         {
-            HighCard,
-            PairOne,
-            PairTwo,
-            Trips,
-            Straight,
-            Flush,
-            FullHouse,
-            StraightFlush,
-            Fours,
+            HighCard = 0,
+            PairOne = 1,
+            PairTwo = 2,
+            Trips = 3,
+            Straight = 4,
+            Flush = 5,
+            FullHouse = 6,
+            Fours = 7,
+            StraightFlush = 8
         }
     }
 }

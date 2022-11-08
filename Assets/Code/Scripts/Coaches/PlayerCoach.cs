@@ -40,7 +40,11 @@ namespace SimplyGreatGames.PokerHoops
         public MouseInput MouseInput
         {
             get => mouseInput;
-            private set => mouseInput = value;
+            private set
+            {
+                Debug.Log("Setting Mouse Input to " + value);
+                mouseInput = value;
+            }
         }
 
         [SerializeField] private CardController cardController;

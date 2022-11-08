@@ -7,6 +7,13 @@ namespace SimplyGreatGames.PokerHoops
     {
         public override PlayerCoach InputOwner { get; set; }
 
+        [SerializeField] private bool isReadingInput;
+        public bool IsReadingInput
+        {
+            get => isReadingInput;
+            set => isReadingInput = value;
+        }
+
         [SerializeField] private bool isReadingCards;
         public bool IsReadingCards
         {
@@ -34,7 +41,7 @@ namespace SimplyGreatGames.PokerHoops
 
         public void Update()
         {
-            if (IsReadingCards == false)
+            if (isReadingInput == false || IsReadingCards == false)
                 return;
 
             if (Input.GetMouseButtonUp(0))
@@ -50,8 +57,8 @@ namespace SimplyGreatGames.PokerHoops
 
         public override void InitializeInput(bool value)
         {
-            if (SystemInfo.deviceType == DeviceType.Desktop)
-                enabled = value;
+            if (SystemInfo.deviceType == DeviceType.Desktop) // if is desktop, turn on the mouse input controls
+                isReadingInput = value;
         }
 
         #endregion
