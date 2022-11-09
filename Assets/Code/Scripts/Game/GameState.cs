@@ -217,7 +217,7 @@ namespace SimplyGreatGames.PokerHoops
 
         private void RandomlySelectWinner()
         {
-            int winner = Random.Range(1, 3);
+            int winner = Random.Range(0, 2);
 
             Coach winningCoach = StateMachine.Game.CoachesInGame[winner];
 
