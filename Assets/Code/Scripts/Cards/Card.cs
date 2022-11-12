@@ -58,6 +58,9 @@ namespace SimplyGreatGames.PokerHoops
         [SerializeField] private SpriteRenderer backSprite;
         public SpriteRenderer BackSprite { get { return backSprite; } private set { backSprite = value; } }
 
+        [SerializeField] private SpriteRenderer outlineSprite;
+        public SpriteRenderer OutlineSprite { get { return outlineSprite; } private set { outlineSprite = value; } }
+
         public Enums.CardSuits Suit { get; private set; }
         public int Value { get; private set; }
 
@@ -96,8 +99,12 @@ namespace SimplyGreatGames.PokerHoops
             CurrentSlot = -1;
         }
 
-        public void DeclareForDiscard(bool isToBeDiscarded) => IsToBeDiscarded = isToBeDiscarded;
+        public void DeclareForDiscard(bool isToBeDiscarded) {
+            IsToBeDiscarded = isToBeDiscarded;
+            if (isToBeDiscarded) OutlineSprite.sprite = CardScriptable.Outline;
+            else OutlineSprite.sprite = null;
 
+        }
         #endregion
 
         #region Card Scriptable Methods
@@ -115,6 +122,7 @@ namespace SimplyGreatGames.PokerHoops
             FrameSprite.sprite = null;
             ArtSprite.sprite = null;
             BackSprite.sprite = null;
+            OutlineSprite.sprite = null;
         }
 
         private void SetCardArt()
@@ -125,6 +133,7 @@ namespace SimplyGreatGames.PokerHoops
                 ValueSprite.sprite = CardScriptable.ValueOverlay;
                 FrameSprite.sprite = CardScriptable.FrameOverlay;
                 ArtSprite.sprite = CardScriptable.ArtBackground;
+                OutlineSprite.sprite = null;
             }
 
             if (CardBackScriptable != null)

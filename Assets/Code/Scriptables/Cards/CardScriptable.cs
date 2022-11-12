@@ -13,5 +13,6 @@ namespace SimplyGreatGames.PokerHoops
         public Sprite ValueOverlay;
         public Sprite ArtBackground;
         public Sprite FrameOverlay;
+        public Sprite Outline;
     }
 }

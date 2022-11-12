@@ -18,3 +18,4 @@ MonoBehaviour:
   ValueOverlay: {fileID: 21300000, guid: 8a50dba1630d6da4b84609835c9e02bd, type: 3}
   ArtBackground: {fileID: 21300000, guid: 21a2aba983eb01c47afa58dc6dce0b92, type: 3}
   FrameOverlay: {fileID: 21300000, guid: 39e065fed65004040abc7702b9d5ab2c, type: 3}
+  Outline: {fileID: 21300000, guid: 21d0e5ea831f76446b2a015b78767444, type: 3}

@@ -139,6 +139,7 @@ namespace SimplyGreatGames.PokerHoops
                 return;
             }
 
+            handSlot.CardInSlot.DeclareForDiscard(false);
             handSlot.CardInSlot.DeregisterOwner();
 
             switch (discardType)
