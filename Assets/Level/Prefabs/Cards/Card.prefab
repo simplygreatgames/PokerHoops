@@ -502,6 +502,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardScriptable: {fileID: 11400000, guid: 374dc662b33024948b8a35073366d43c, type: 2}
   cardBackScriptable: {fileID: 11400000, guid: db405e9797110704cb1738aa266b28d0, type: 2}
+  isToBeDiscarded: 0
+  currentOwner: {fileID: 0}
+  currentSlot: -1
   animator: {fileID: 7108511044532341966}
   suitSprite: {fileID: 1921865434124898020}
   valueSprite: {fileID: 1235334990665395682}
@@ -539,8 +542,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1.55, z: 0.01}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1.8897448, y: 2.8721492, z: 0.01}
+  m_Center: {x: 0.0023094416, y: -0.0023525953, z: 0}
 --- !u!1 &8859756774328561259
 GameObject:
   m_ObjectHideFlags: 0
