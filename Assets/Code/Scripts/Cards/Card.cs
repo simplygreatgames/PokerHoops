@@ -31,7 +31,16 @@ namespace SimplyGreatGames.PokerHoops
         }
 
         [SerializeField] private bool isToBeDiscarded = false;
-        public bool IsToBeDiscarded { get => isToBeDiscarded; private set => isToBeDiscarded = value; }
+        public bool IsToBeDiscarded 
+        { 
+            get => isToBeDiscarded;
+            private set
+            {
+                isToBeDiscarded = value;
+                Animator.SetBool("IsSelected", IsToBeDiscarded);
+            }
+        }
+
         [SerializeField] private Coach currentOwner = null;
         public Coach CurrentOwner { get => currentOwner; private set => currentOwner = value; }
 
@@ -99,11 +108,11 @@ namespace SimplyGreatGames.PokerHoops
             CurrentSlot = -1;
         }
 
-        public void DeclareForDiscard(bool isToBeDiscarded) {
+        public void DeclareForDiscard(bool isToBeDiscarded) 
+        {
             IsToBeDiscarded = isToBeDiscarded;
-            if (isToBeDiscarded) OutlineSprite.sprite = CardScriptable.Outline;
-            else OutlineSprite.sprite = null;
-
+            //if (isToBeDiscarded) OutlineSprite.sprite = CardScriptable.Outline;
+            //else OutlineSprite.sprite = null;
         }
         #endregion
 
@@ -133,7 +142,7 @@ namespace SimplyGreatGames.PokerHoops
                 ValueSprite.sprite = CardScriptable.ValueOverlay;
                 FrameSprite.sprite = CardScriptable.FrameOverlay;
                 ArtSprite.sprite = CardScriptable.ArtBackground;
-                OutlineSprite.sprite = null;
+                OutlineSprite.sprite = CardScriptable.Outline;
             }
 
             if (CardBackScriptable != null)
