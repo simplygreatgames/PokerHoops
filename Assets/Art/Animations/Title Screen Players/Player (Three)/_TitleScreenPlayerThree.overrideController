@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: _TitleScreenPlayerThree
+  m_Controller: {fileID: 9100000, guid: 1a74c4f2ec38a474c8056de6714462fb, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: b5a7020049877554484405da916adaab, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: cf00842317a88934db27e087f42e561f, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: dd21f4342c3904d4188bd0ce5783ebba, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: fb3d7e347b84fec4ba9e6762282cc86a, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 4f097e8b59aaf7249a7e667d5dca055d, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: d61445c131a340e4cbbabdef7a8039a6, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 05d0aa4b5af1ed24b803b129faf651bb, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 3d31b43d024fd0841841054d91e4508f, type: 2}
